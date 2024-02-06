@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovementE : MonoBehaviour
 {
     public float moveSpeed;
     public Rigidbody2D rb;
-    private Vector2 moveDirection;
+    private bool isJumping = false;
+    public float jumpForce;
 
     //accessing the animator
     public Animator animator;
@@ -19,40 +20,23 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ProcessInputs();
-    }
-    void FixedUpdate()
-    {
-        //physics calculations
-        Move();
-    }
-    void ProcessInputs()
-    {
-        float moveX = Input.GetAxisRaw("Horizontal");
-        float moveY = Input.GetAxisRaw("Vertical");
-        moveDirection = new Vector2(moveX, moveY).normalized;
-    }
-    void Move()
-    {
-        rb.velocity = new Vector2(moveDirection.x * moveSpeed, moveDirection.y * moveSpeed);
-        CheckForFlipping();
+        Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0f, 0f);
+        transform.position += move * Time.deltaTime * moveSpeed;
+
+        if (Input.GetButtonDown("Jump") && !isJumping)
+        {
+            rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
+            isJumping = true;
+        }
+
     }
 
-    private void CheckForFlipping()
+    void OnCollisionEnter2D(Collision2D collision)
     {
-        bool movingLeft = moveDirection.x < 0;
-        bool movingRight = moveDirection.x > 0;
-        //bool movingUp = moveDirection.y > 0;
-        //bool movingDown = moveDirection.y < 0;
-
-        if (movingLeft)
+        if (collision.gameObject)
         {
-            transform.localScale = new Vector3(-1f, transform.localScale.y);
+            isJumping = false;
         }
-        if (movingRight)
-        {
-            transform.localScale = new Vector3(1f, transform.localScale.y);
-        }
-        
     }
+
 }
