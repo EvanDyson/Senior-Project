@@ -8,6 +8,7 @@ public class PlayerMovementE : MonoBehaviour
     public Rigidbody2D rb;
     private bool isJumping = false;
     public float jumpForce;
+    private Vector3 move;
 
     //accessing the animator
     public Animator animator;
@@ -20,8 +21,8 @@ public class PlayerMovementE : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0f, 0f);
-        transform.position += move * Time.deltaTime * moveSpeed;
+        move = new Vector3(Input.GetAxis("Horizontal"), 0f, 0f);
+        //transform.position += move * Time.deltaTime * moveSpeed;
 
         if (Input.GetButtonDown("Jump") && !isJumping)
         {
@@ -31,6 +32,11 @@ public class PlayerMovementE : MonoBehaviour
 
     }
 
+    void FixedUpdate()
+    {
+        transform.position += move * Time.deltaTime * moveSpeed;
+    }
+
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject)
@@ -38,5 +44,4 @@ public class PlayerMovementE : MonoBehaviour
             isJumping = false;
         }
     }
-
 }
