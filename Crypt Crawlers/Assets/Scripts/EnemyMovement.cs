@@ -5,12 +5,13 @@ using UnityEngine;
 public class EnemyMovement : MonoBehaviour
 {
     public float speed = 5.0f;
-    private Rigidbody rb;
+    public float chaseRange = 10.0f;
+    private Rigidbody2D rb;
     private GameObject player;
 
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody2D>();
         player = GameObject.FindGameObjectWithTag("Player");
     }
 
@@ -18,8 +19,12 @@ public class EnemyMovement : MonoBehaviour
     {
         if (player != null)
         {
-            Vector3 direction = (player.transform.position - transform.position).normalized;
-            rb.MovePosition(transform.position + direction * speed * Time.fixedDeltaTime);
+            float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
+            if (distanceToPlayer <= chaseRange)
+            {
+                Vector3 direction = (player.transform.position - transform.position).normalized;
+                rb.MovePosition(transform.position + direction * speed * Time.fixedDeltaTime);
+            }
         }
     }
 }
