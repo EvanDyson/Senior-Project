@@ -25,6 +25,10 @@ public class EnemyMovement : MonoBehaviour
                 Vector3 direction = (player.transform.position - transform.position).normalized;
                 rb.MovePosition(transform.position + direction * speed * Time.fixedDeltaTime);
             }
+            else
+            {
+                rb.velocity = Vector2.zero; // Stop the enemy completely
+            }
         }
     }
 }
