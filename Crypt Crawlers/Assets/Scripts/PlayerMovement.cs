@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     private bool isJumping = false;
     public float jumpForce;
     private Vector3 move;
+    public static Transform playerTransform;
 
     //accessing the animator
     public Animator animator;
@@ -16,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        playerTransform = transform;
     }
 
     // Update is called once per frame

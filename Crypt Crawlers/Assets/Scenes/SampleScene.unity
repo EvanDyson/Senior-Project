@@ -483,8 +483,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7687b1a04e84240de8b74a9653edfa41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 134886067}
   speed: 2
-  chaseRange: 5
+  chaseRange: 4
+  patrolRange: 4
 --- !u!61 &530352440
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -556,7 +558,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!212 &530352442
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -618,7 +620,7 @@ Transform:
   m_GameObject: {fileID: 530352438}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -13.24, y: -2.01, z: 0}
+  m_LocalPosition: {x: -14.96, y: -2.01, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
