@@ -9,6 +9,7 @@ public class EnemyAI : MonoBehaviour
     public GameObject pointB;
     public float speed;
     public float chaseDistance;
+    public Animator animator;
 
     //private Animator animation;
     private Rigidbody2D rb;
@@ -19,9 +20,7 @@ public class EnemyAI : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        //animation = GetComponent<Animator>();
         currentTarget = pointB.transform;
-        //animation.SetBool("isRunning", true);
     }
 
     // Update is called once per frame
@@ -31,14 +30,25 @@ public class EnemyAI : MonoBehaviour
         Vector2 direction = player.transform.position - transform.position;
         direction.Normalize();
         // use rotation for spider to angle it towards player
-        //float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
         Vector2 point = currentTarget.position - transform.position;
+
+        //animator.SetFloat("Speed", Mathf.Abs(rb.velocity.x));
 
         if (playerDistance < chaseDistance)
         {
             transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, speed * Time.deltaTime);
+            // use rotation for spider to angle it towards player
             //transform.rotation = Quaternion.Euler(Vector3.forward * angle);
+            if (angle < 90)
+            {
+                transform.localScale = new Vector3(1f, transform.localScale.y);
+            }
+            else if (angle > 90)
+            {
+                transform.localScale = new Vector3(-1f, transform.localScale.y);
+            }
         }
         else
         {
@@ -55,22 +65,29 @@ public class EnemyAI : MonoBehaviour
 
             if (Vector2.Distance(transform.position, currentTarget.position) < 0.5f && currentTarget == pointB.transform)
             {
-                //flip();
                 currentTarget = pointA.transform;
             }
             if (Vector2.Distance(transform.position, currentTarget.position) < 0.5f && currentTarget == pointA.transform)
             {
-                //flip();
                 currentTarget = pointB.transform;
             }
         }
+        CheckForFlipping();
     }
 
-    private void flip()
+    private void CheckForFlipping()
     {
-        Vector3 localScale = transform.localScale;
-        localScale.x *= -1;
-        transform.localScale = localScale;
+        bool movingLeft = rb.velocity.x < 0;
+        bool movingRight = rb.velocity.x > 0;
+
+        if (movingLeft)
+        {
+            transform.localScale = new Vector3(-1f, transform.localScale.y);
+        }
+        if (movingRight)
+        {
+            transform.localScale = new Vector3(1f, transform.localScale.y);
+        }
     }
 
     private void OnDrawGizmos()
