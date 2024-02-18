@@ -15,12 +15,14 @@ public class EnemyAI : MonoBehaviour
     private Rigidbody2D rb;
     private Transform currentTarget;
     private float playerDistance;
+    public AudioSource SkeleFootsteps;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         currentTarget = pointB.transform;
+        SkeleFootsteps.enabled = true;
     }
 
     // Update is called once per frame
