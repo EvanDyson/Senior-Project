@@ -10,12 +10,17 @@ public class PlayerMovement : MonoBehaviour
     public float jumpForce;
     private Vector3 move;
     public static Transform playerTransform;
+    private GameObject SlingshotVectorObject;
+    private SpriteRenderer slingshotVectorSprite;
+    bool flipped = false;
 
     //accessing the animator
     public Animator animator;
 
     void Start()
     {
+        SlingshotVectorObject = GameObject.Find("SlingshotForce");
+        slingshotVectorSprite = SlingshotVectorObject.GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
         playerTransform = transform;
     }
@@ -55,11 +60,29 @@ public class PlayerMovement : MonoBehaviour
 
         if (movingLeft)
         {
+            if (!flipped)
+            {
+                flipped = true;
+                FlipSprite();
+            }
             transform.localScale = new Vector3(-1f, transform.localScale.y);
         }
         if (movingRight)
         {
+            if (flipped)
+            {
+                flipped = false;
+                FlipSprite();
+            }
             transform.localScale = new Vector3(1f, transform.localScale.y);
+        }
+    }
+
+    private void FlipSprite()
+    {
+        if (slingshotVectorSprite != null)
+        {
+            slingshotVectorSprite.flipX = !slingshotVectorSprite.flipX;
         }
     }
 }
