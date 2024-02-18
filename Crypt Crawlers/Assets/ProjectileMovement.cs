@@ -8,6 +8,7 @@ public class ProjectileMovement : MonoBehaviour
     private Camera mainCam;
     private Rigidbody2D rb;
     private float force;
+    public float rotationSpeed;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,7 +23,7 @@ public class ProjectileMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        transform.Rotate(0f, 0f, rotationSpeed * Time.deltaTime, Space.Self);
     }
     public void ChangeSpeed(float newSpeed)
     {
