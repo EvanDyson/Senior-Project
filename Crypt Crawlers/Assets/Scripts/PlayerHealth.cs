@@ -8,6 +8,7 @@ public class PlayerHealth : MonoBehaviour
     public float health;
     public float maxHealth;
     public Image HealthBar;
+    [SerializeField] private Transform respawnPoint; // drag respawn point here in inspector
 
     // Start is called before the first frame update
     void Start()
@@ -24,5 +25,16 @@ public class PlayerHealth : MonoBehaviour
             Debug.Log("Player dead.");
 
         HealthBar.fillAmount = Mathf.Clamp(health / maxHealth, 0, 1);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision) {
+        if (collision.CompareTag("deathline")) {
+            Respawn();
+        }
+    }
+
+    private void Respawn() {
+        // reset player position to respawn point
+        transform.position = respawnPoint.position;
     }
 }
