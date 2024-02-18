@@ -15,12 +15,14 @@ public class EnemyAI : MonoBehaviour
     private Rigidbody2D rb;
     private Transform currentTarget;
     private float playerDistance;
+    //public AudioSource SkeleFootsteps;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         currentTarget = pointB.transform;
+        //SkeleFootsteps.enabled = true;
     }
 
     // Update is called once per frame
@@ -41,11 +43,12 @@ public class EnemyAI : MonoBehaviour
             transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, speed * Time.deltaTime);
             // use rotation for spider to angle it towards player
             //transform.rotation = Quaternion.Euler(Vector3.forward * angle);
-            if (angle < 90)
+            
+            if (Mathf.Abs(angle) < 90)
             {
                 transform.localScale = new Vector3(1f, transform.localScale.y);
             }
-            else if (angle > 90)
+            else if (Mathf.Abs(angle) > 90)
             {
                 transform.localScale = new Vector3(-1f, transform.localScale.y);
             }
