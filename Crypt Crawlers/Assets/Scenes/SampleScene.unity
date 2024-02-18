@@ -1916,7 +1916,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCam: {fileID: 519420031}
-  projectile: {fileID: 3240803549295928112, guid: 482a99f06f570fa4ab52c15e81dfbbc1, type: 3}
   spawnPoint: {fileID: 1926951938}
   canFire: 1
   timeBetweenFiring: 1.25

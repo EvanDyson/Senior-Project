@@ -12,6 +12,10 @@ public class ProjectileMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //make sure player is not effected by collision
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        Physics2D.IgnoreCollision(player.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+
         mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         rb = GetComponent<Rigidbody2D>();
         mousePos = mainCam.ScreenToWorldPoint(Input.mousePosition);
@@ -29,4 +33,14 @@ public class ProjectileMovement : MonoBehaviour
     {
         force = newSpeed;
     }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log("X" + collision.gameObject.tag + "Y");
+        if ( collision.gameObject.tag == "Breakable")
+        {
+            collision.gameObject.SetActive(false);
+        }
+        Destroy(gameObject, 0.1f);
+    }
+
 }
