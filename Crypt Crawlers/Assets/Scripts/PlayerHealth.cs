@@ -22,7 +22,7 @@ public class PlayerHealth : MonoBehaviour
         if (health > maxHealth)
             health = maxHealth;
         if (health <= 0)
-            Debug.Log("Player dead.");
+            Respawn();
 
         HealthBar.fillAmount = Mathf.Clamp(health / maxHealth, 0, 1);
     }
