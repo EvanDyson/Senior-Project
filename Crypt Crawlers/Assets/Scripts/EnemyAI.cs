@@ -43,11 +43,12 @@ public class EnemyAI : MonoBehaviour
             transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, speed * Time.deltaTime);
             // use rotation for spider to angle it towards player
             //transform.rotation = Quaternion.Euler(Vector3.forward * angle);
-            if (angle < 90)
+            
+            if (Mathf.Abs(angle) < 90)
             {
                 transform.localScale = new Vector3(1f, transform.localScale.y);
             }
-            else if (angle > 90)
+            else if (Mathf.Abs(angle) > 90)
             {
                 transform.localScale = new Vector3(-1f, transform.localScale.y);
             }
