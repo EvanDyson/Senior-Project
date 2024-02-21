@@ -1470,7 +1470,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!61 &530352440
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4512,6 +4512,7 @@ GameObject:
   - component: {fileID: 1663188410}
   - component: {fileID: 1663188409}
   - component: {fileID: 1663188408}
+  - component: {fileID: 1663188412}
   m_Layer: 0
   m_Name: Spider
   m_TagString: Untagged
@@ -4613,7 +4614,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!212 &1663188411
 SpriteRenderer:
@@ -4667,6 +4668,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1663188412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1663188406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cda2368e693cf48e1b9ec484c1f51166, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 20
 --- !u!1 &1751470135
 GameObject:
   m_ObjectHideFlags: 0
