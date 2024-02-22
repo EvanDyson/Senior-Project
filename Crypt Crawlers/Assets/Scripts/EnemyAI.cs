@@ -31,18 +31,13 @@ public class EnemyAI : MonoBehaviour
         playerDistance = Vector2.Distance(transform.position, player.transform.position);
         Vector2 direction = player.transform.position - transform.position;
         direction.Normalize();
-        // use rotation for spider to angle it towards player
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-
-        Vector2 point = currentTarget.position - transform.position;
 
         //animator.SetFloat("Speed", Mathf.Abs(rb.velocity.x));
 
         if (playerDistance < chaseDistance)
         {
             transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, speed * Time.deltaTime);
-            // use rotation for spider to angle it towards player
-            //transform.rotation = Quaternion.Euler(Vector3.forward * angle);
             
             if (Mathf.Abs(angle) < 90)
             {
