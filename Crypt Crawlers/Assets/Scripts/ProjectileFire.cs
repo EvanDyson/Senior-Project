@@ -20,7 +20,7 @@ public class ProjectileFire : MonoBehaviour
     // Start is called before the first frame update
 
     //Used to update projectilespeed
-    ProjectileMovement speedScript;
+    ProjectileMovement script;
     void Start()
     {
         forceVector = GameObject.Find("SlingshotForce");
@@ -51,7 +51,7 @@ public class ProjectileFire : MonoBehaviour
             //reset the force vector
             forceVector.transform.localScale = new Vector3(0, transform.localScale.y, transform.localScale.z);
             GameObject copy = Instantiate(projectile, spawnPoint.position, Quaternion.identity);
-            ProjectileMovement script = copy.GetComponent<ProjectileMovement>();
+            script = copy.GetComponent<ProjectileMovement>();
             script.ChangeSpeed(force);
             force = 0;
             canFire = false;
