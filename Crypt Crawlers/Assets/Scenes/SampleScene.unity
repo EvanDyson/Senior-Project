@@ -335,6 +335,7 @@ GameObject:
   - component: {fileID: 134886071}
   - component: {fileID: 134886073}
   - component: {fileID: 134886072}
+  - component: {fileID: 134886074}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -435,6 +436,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1405885939}
+  - {fileID: 493362345}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &134886069
@@ -550,6 +552,25 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!114 &134886074
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 134886063}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f82539ee61584a3f870f69e2d5a55f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 20
+  attackPos: {fileID: 493362345}
+  attackRange: 0.39
+  whatIsEnemy:
+    serializedVersion: 2
+    m_Bits: 512
+  startTimeBtwAttack: 0.2
 --- !u!1 &226184071
 GameObject:
   m_ObjectHideFlags: 0
@@ -1456,6 +1477,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 472352666}
   m_CullTransparentMesh: 1
+--- !u!1 &493362344
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 493362345}
+  m_Layer: 0
+  m_Name: AttackPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &493362345
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 493362344}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.426, y: -0.169, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 134886067}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &509904973
 GameObject:
   m_ObjectHideFlags: 0
@@ -1755,13 +1807,13 @@ GameObject:
   - component: {fileID: 530352445}
   - component: {fileID: 530352447}
   - component: {fileID: 530352446}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Skeleton
-  m_TagString: Untagged
+  m_TagString: Skeleton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!61 &530352440
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1913,6 +1965,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8642c247f508434c82e967b9768362a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 10
   player: {fileID: 134886063}
   pointA: {fileID: 1930732255}
   pointB: {fileID: 18431816}
@@ -4837,13 +4890,13 @@ GameObject:
   - component: {fileID: 1663188409}
   - component: {fileID: 1663188408}
   - component: {fileID: 1663188412}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Spider
-  m_TagString: Untagged
+  m_TagString: Spider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1663188407
 Transform:
   m_ObjectHideFlags: 0
@@ -4871,6 +4924,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf8a8aed81ef84ece84f422930c54156, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 10
   player: {fileID: 134886063}
   points:
   - {fileID: 1802165781}

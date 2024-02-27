@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SpiderAI : MonoBehaviour
 {
+    public int health;
     public GameObject player;
     public List<Transform> points;
     public float speed;
@@ -26,6 +27,12 @@ public class SpiderAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+        }
+        Debug.Log("Spider health = " + health);
+
         playerDistance = Vector2.Distance(transform.position, player.transform.position);
 
         if (playerDistance < chaseDistance)

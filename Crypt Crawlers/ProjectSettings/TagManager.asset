@@ -8,6 +8,8 @@ TagManager:
   - Enemy
   - deathline
   - Breakable
+  - Skeleton
+  - Spider
   layers:
   - Default
   - TransparentFX
@@ -18,7 +20,7 @@ TagManager:
   - Player
   - InfrontOfPlayer
   - 
-  - 
+  - Enemy
   - 
   - 
   - 
