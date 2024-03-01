@@ -9,9 +9,12 @@ public class ProjectileMovement : MonoBehaviour
     private Rigidbody2D rb;
     private float force;
     public float rotationSpeed;
+    private EnemyHealth damage;
+    public float attackPower = 25f;
     // Start is called before the first frame update
     void Start()
     {
+        
         //make sure player is not effected by collision
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         Physics2D.IgnoreCollision(player.GetComponent<Collider2D>(), GetComponent<Collider2D>());
@@ -39,6 +42,11 @@ public class ProjectileMovement : MonoBehaviour
         if ( collision.gameObject.tag == "Breakable")
         {
             collision.gameObject.SetActive(false);
+        }
+        else if (collision.gameObject.tag == "Enemy")
+        {
+            damage = collision.gameObject.GetComponent<EnemyHealth>();
+            damage.TakeDamage(attackPower);
         }
         Destroy(gameObject, 0.1f);
     }
