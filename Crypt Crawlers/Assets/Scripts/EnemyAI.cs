@@ -33,7 +33,6 @@ public class EnemyAI : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        Debug.Log("Skele health = " + health);
 
         playerDistance = Vector2.Distance(transform.position, player.transform.position);
         Vector2 direction = player.transform.position - transform.position;

@@ -31,7 +31,6 @@ public class SpiderAI : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        Debug.Log("Spider health = " + health);
 
         playerDistance = Vector2.Distance(transform.position, player.transform.position);
 

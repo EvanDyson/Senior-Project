@@ -25,7 +25,7 @@ public class PlayerMelee : MonoBehaviour
         {
             if (Input.GetMouseButton(0))
             {
-                Debug.Log("Mouse 0 - Left click");
+                //Debug.Log("Mouse 0 - Left click");
 
                 Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPos.position, attackRange, whatIsEnemy);
                 for (int i = 0; i < enemiesToDamage.Length; i++)
