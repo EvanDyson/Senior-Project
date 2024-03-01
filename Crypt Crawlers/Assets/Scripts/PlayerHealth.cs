@@ -36,8 +36,8 @@ public class PlayerHealth : MonoBehaviour
     private void Respawn() {
         // reset player position to respawn point
         transform.position = respawnPoint.position;
-        if (health <= 0) {
-            health = maxHealth;
-        }
+       
+        health = maxHealth;
+        
     }
 }
