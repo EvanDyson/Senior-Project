@@ -66,7 +66,7 @@ public class SpiderAI : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * 10);
     }
 
-    private void OnDrawGizmos()
+    private void OnDrawGizmosSelected()
     {
         for (int i = 0; i < points.Count; i++)
         {
@@ -77,5 +77,8 @@ public class SpiderAI : MonoBehaviour
             Gizmos.DrawLine(points[i].position, points[i + 1].position);
         }
         Gizmos.DrawLine(points[points.Count-1].position, points[0].position);
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, chaseDistance);
     }
 }
