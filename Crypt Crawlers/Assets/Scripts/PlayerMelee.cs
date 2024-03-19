@@ -9,7 +9,7 @@ public class PlayerMelee : MonoBehaviour
     public float attackRange;
     public LayerMask whatIsEnemy;
     public float startTimeBtwAttack;
-
+    private EnemyHealth enemyHealth;
     private float timeBtwAttack;
 
     // Start is called before the first frame update
@@ -25,18 +25,15 @@ public class PlayerMelee : MonoBehaviour
         {
             if (Input.GetMouseButton(0))
             {
-                //Debug.Log("Mouse 0 - Left click");
 
                 Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPos.position, attackRange, whatIsEnemy);
                 for (int i = 0; i < enemiesToDamage.Length; i++)
                 {
-                    if (enemiesToDamage[i].CompareTag("Skeleton"))
+                    if (enemiesToDamage[i].gameObject.tag == "Enemy")
                     {
-                        enemiesToDamage[i].GetComponent<EnemyAI>().health -= damage;
-                    }
-                    if (enemiesToDamage[i].CompareTag("Spider"))
-                    {
-                        enemiesToDamage[i].GetComponent<SpiderAI>().health -= damage;
+                        Debug.Log("meleeing" + enemiesToDamage[i].gameObject.name);
+                        enemyHealth = enemiesToDamage[i].gameObject.GetComponent<EnemyHealth>();
+                        enemyHealth.TakeDamage(damage);
                     }
                 }
             }

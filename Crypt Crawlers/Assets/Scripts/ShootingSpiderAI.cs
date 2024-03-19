@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ShootingSpiderAI : MonoBehaviour
 {
-    public int health;
     public float shootDistance;
     public GameObject player;
     private Rigidbody2D rb;
@@ -23,11 +22,6 @@ public class ShootingSpiderAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (health <= 0)
-        {
-            Destroy(gameObject);
-        }
-
         playerDistance = Vector2.Distance(transform.position, player.transform.position);
 
         if (playerDistance < shootDistance)
