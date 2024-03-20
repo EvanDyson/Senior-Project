@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class SpiderAI : MonoBehaviour
 {
-    public int health;
     public GameObject player;
     public List<Transform> points;
     public float speed;
@@ -27,11 +26,6 @@ public class SpiderAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (health <= 0)
-        {
-            Destroy(gameObject);
-        }
-
         playerDistance = Vector2.Distance(transform.position, player.transform.position);
 
         if (playerDistance < chaseDistance)
@@ -66,7 +60,7 @@ public class SpiderAI : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * 10);
     }
 
-    private void OnDrawGizmos()
+    private void OnDrawGizmosSelected()
     {
         for (int i = 0; i < points.Count; i++)
         {
@@ -77,5 +71,8 @@ public class SpiderAI : MonoBehaviour
             Gizmos.DrawLine(points[i].position, points[i + 1].position);
         }
         Gizmos.DrawLine(points[points.Count-1].position, points[0].position);
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, chaseDistance);
     }
 }

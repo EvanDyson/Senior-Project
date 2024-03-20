@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class EnemyAI : MonoBehaviour
 {
-    public int health;
     public GameObject player;
     public GameObject pointA;
     public GameObject pointB;
@@ -29,11 +28,6 @@ public class EnemyAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (health <= 0)
-        {
-            Destroy(gameObject);
-        }
-
         playerDistance = Vector2.Distance(transform.position, player.transform.position);
         Vector2 direction = player.transform.position - transform.position;
         direction.Normalize();
@@ -94,10 +88,13 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmos()
+    private void OnDrawGizmosSelected()
     {
         Gizmos.DrawWireSphere(pointA.transform.position, 0.5f);
         Gizmos.DrawWireSphere(pointB.transform.position, 0.5f);
         Gizmos.DrawLine(pointA.transform.position, pointB.transform.position);
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, chaseDistance);
     }
 }
