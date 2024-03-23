@@ -63,7 +63,7 @@ public class ProjectileFire : MonoBehaviour
         if (Input.GetMouseButton(1) && force < 8.0 && forceTimer > timeBetweenIncreasing && canFire)
         {
             forceVector.transform.localScale += new Vector3(2, 0, 0);
-            force += 2.0f;
+            force += 3.0f;
             forceTimer = 0;
             
         }
