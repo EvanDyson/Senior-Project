@@ -7,8 +7,6 @@ public class Teleportation : MonoBehaviour
 {
     public Transform destination;
     public KeyCode teleportKey = KeyCode.T;
-    public float teleportCooldown = 1f;
-    public Text popupText;
     private bool canTeleport = false;
 
     void OnTriggerEnter2D(Collider2D other)
@@ -16,8 +14,6 @@ public class Teleportation : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             canTeleport = true;
-            popupText.enabled = true;
-            popupText.color = Color.white;
         }
     }
 
@@ -25,7 +21,6 @@ public class Teleportation : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            popupText.enabled = false;
             canTeleport = false;
         }
     }
@@ -35,20 +30,14 @@ public class Teleportation : MonoBehaviour
         if (canTeleport && Input.GetKeyDown(teleportKey))
         {
             TeleportPlayer();
-            StartCoroutine(TeleportCooldown());
         }
     }
 
     void TeleportPlayer()
     {
+        canTeleport = false;
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         player.transform.position = destination.position;
     }
 
-    IEnumerator TeleportCooldown()
-    {
-        canTeleport = false;
-        yield return new WaitForSeconds(teleportCooldown);
-        canTeleport = true;
-    }
 }
