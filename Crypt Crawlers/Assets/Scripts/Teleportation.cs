@@ -9,12 +9,13 @@ public class Teleportation : MonoBehaviour
     public KeyCode teleportKey = KeyCode.T;
     public float teleportCooldown = 1f;
     public Text popupText;
-    private bool canTeleport = true;
+    private bool canTeleport = false;
 
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
+            canTeleport = true;
             popupText.enabled = true;
             popupText.color = Color.white;
         }
@@ -25,9 +26,10 @@ public class Teleportation : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             popupText.enabled = false;
+            canTeleport = false;
         }
     }
-
+   
     void Update()
     {
         if (canTeleport && Input.GetKeyDown(teleportKey))
