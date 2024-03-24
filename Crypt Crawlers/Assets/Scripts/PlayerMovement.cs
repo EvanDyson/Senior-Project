@@ -21,7 +21,6 @@ public class PlayerMovement : MonoBehaviour
     {
         SlingshotVectorObject = GameObject.Find("SlingshotForce");
         slingshotVectorSprite = SlingshotVectorObject.GetComponent<SpriteRenderer>();
-        rb = GetComponent<Rigidbody2D>();
         playerTransform = transform;
     }
 
@@ -31,6 +30,12 @@ public class PlayerMovement : MonoBehaviour
         move = new Vector3(Input.GetAxis("Horizontal"), 0f, 0f);
 
         animator.SetFloat("Speed", Mathf.Abs(move.x));
+
+        //test change sprite to dagger sprite
+        if (Input.GetKey(KeyCode.X))
+        {
+            animator.SetBool("hasDagger", true);
+        }
 
         if (Input.GetButtonDown("Jump") && !isJumping)
         {
