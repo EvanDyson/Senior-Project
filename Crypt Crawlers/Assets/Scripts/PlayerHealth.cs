@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
+
+    private PlayerMovement playerMovement;
     public float health;
     public float maxHealth;
     public Image HealthBar;
@@ -13,6 +15,7 @@ public class PlayerHealth : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        playerMovement = GetComponent<PlayerMovement>();
         maxHealth = health;
     }
 
@@ -28,9 +31,19 @@ public class PlayerHealth : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
+        if (collision.name == "shooting web(Clone)") {
+            StartCoroutine(SlowDown(2.0f));
+        }
         if (collision.CompareTag("deathline")) {
             Respawn();
         }
+    }
+
+    IEnumerator SlowDown(float duration)
+    {
+        playerMovement.moveSpeed = 1.5f;
+        yield return new WaitForSeconds(duration);
+        playerMovement.moveSpeed = 6f;
     }
 
     private void Respawn() {
