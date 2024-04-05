@@ -6028,7 +6028,7 @@ GameObject:
   - component: {fileID: 1241134326}
   m_Layer: 9
   m_Name: ShootingSpider
-  m_TagString: Enemy
+  m_TagString: ShootingSpider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6842,9 +6842,8 @@ MonoBehaviour:
   prefabToSpawn: {fileID: 745435661405005828, guid: 5a6c26545a3122142b0e1cd831bfdc76, type: 3}
   minXOffset: -1
   maxXOffset: 1
-  minSpawnInterval: 10
-  maxSpawnInterval: 20
-  despawnTime: 5
+  minSpawnInterval: 20
+  maxSpawnInterval: 40
 --- !u!4 &1482347141
 Transform:
   m_ObjectHideFlags: 0
@@ -6854,7 +6853,7 @@ Transform:
   m_GameObject: {fileID: 1482347139}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -19.5, y: -2.31, z: -0.43743113}
+  m_LocalPosition: {x: -19.5, y: -2.495, z: -0.43743113}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
