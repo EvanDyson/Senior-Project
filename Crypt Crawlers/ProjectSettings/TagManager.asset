@@ -10,6 +10,7 @@ TagManager:
   - Breakable
   - Skeleton
   - Spider
+  - ShootingSpider
   layers:
   - Default
   - TransparentFX
