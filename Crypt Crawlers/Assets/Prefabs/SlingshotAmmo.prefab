@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3185398788873485053}
   - component: {fileID: 6814337564952508151}
   m_Layer: 0
-  m_Name: SlingshotAmmo(Default)
+  m_Name: SlingshotAmmo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
