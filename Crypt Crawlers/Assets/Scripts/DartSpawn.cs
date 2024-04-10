@@ -31,8 +31,8 @@ public class DartSpawn : MonoBehaviour
             leftDir = false;
         }
 
-        float offsetX = GetComponent<Renderer>().bounds.size.x / 2f;
-        Vector2 spawnPosition = new Vector2((spawnPoint.position.x + offsetX) - GetComponent<Renderer>().bounds.size.x, spawnPoint.position.y);
+        float offsetX = GetComponent<BoxCollider2D>().bounds.size.x / 2f;
+        Vector2 spawnPosition = new Vector2((spawnPoint.position.x + offsetX) - GetComponent<BoxCollider2D>().bounds.size.x, spawnPoint.position.y);
 
         if (!leftDir)
         {
