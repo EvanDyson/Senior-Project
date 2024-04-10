@@ -5,7 +5,7 @@ using UnityEngine;
 public class ShootingSpiderAI : MonoBehaviour
 {
     public float shootDistance;
-    public GameObject player;
+    private GameObject player;
     private Rigidbody2D rb;
     private float playerDistance;
 
@@ -16,6 +16,11 @@ public class ShootingSpiderAI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        player = GameObject.Find("Player");
+        if (player == null )
+        {
+            Debug.Log("Object of name 'Player' not found");
+        }
         rb = GetComponent<Rigidbody2D>();
     }
 
