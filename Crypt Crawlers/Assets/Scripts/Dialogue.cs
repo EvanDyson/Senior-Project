@@ -9,6 +9,8 @@ public class Dialogue : MonoBehaviour
     public string[] lines;
     public float textSpeed;
     private int index;
+    private bool isTyping;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +30,10 @@ public class Dialogue : MonoBehaviour
                 textComponent.text = lines[index];
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.G)) {
+            gameObject.SetActive(false);
+        }
     }
 
     void StartDialogue() {
@@ -36,28 +42,34 @@ public class Dialogue : MonoBehaviour
     }
 
     IEnumerator TypeLine() {
-    if (index < lines.Length) {
+        isTyping = true;
         foreach (char c in lines[index].ToCharArray()) {
             textComponent.text += c;
             yield return new WaitForSeconds(textSpeed);
         }
+        isTyping = false;
     }
-    else {
-        Debug.LogWarning("Index is out of bounds");
-    }
-}
-
 
     void NextLine() {
-    if (index < lines.Length - 1) {
-        index++;
-        textComponent.text = string.Empty;
-        StartCoroutine(TypeLine()); 
+        if (!isTyping) {
+            if (index < lines.Length - 1) {
+                index++;
+                textComponent.text = string.Empty;
+                StartCoroutine(TypeLine()); 
+            }
+            else {
+                index = 0; // Reset index to start from the beginning
+                gameObject.SetActive(false);
+            }
+        }
     }
-    else {
-        index = 0; // Reset index to start from the beginning
-        gameObject.SetActive(false);
-    }
-}
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            StartDialogue();
+            gameObject.SetActive(true);
+        }
+    }
 }
