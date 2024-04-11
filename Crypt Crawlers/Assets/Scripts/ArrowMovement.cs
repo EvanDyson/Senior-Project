@@ -31,7 +31,7 @@ public class ArrowMovement : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("X" + collision.gameObject.tag + "Y");
+        
         if (collision.gameObject.tag == "Breakable")
         {
             collision.gameObject.SetActive(false);
