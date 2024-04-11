@@ -19,7 +19,7 @@ public class Dialogue : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButtonDown(0)) {
+        if(Input.GetKeyUp(KeyCode.F)) {
             if (textComponent.text == lines[index]) {
                 NextLine();
             }
