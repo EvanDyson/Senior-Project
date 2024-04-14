@@ -9,7 +9,6 @@ public class EnemyAI : MonoBehaviour
     public GameObject pointB;
     public float speed;
     public float chaseDistance;
-    public Animator animator;
 
     //private Animator animation;
     private Rigidbody2D rb;
