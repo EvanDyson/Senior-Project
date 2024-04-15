@@ -72,10 +72,14 @@ public class EnemyAI : MonoBehaviour
                 currentTarget = pointB.transform;
             }
         }
+        //CheckForFlipping();
+    }
+    void FixedUpdate()
+    {
         CheckForFlipping();
     }
 
-    private void CheckForFlipping()
+        private void CheckForFlipping()
     {
         bool movingLeft = rb.velocity.x < 0;
         bool movingRight = rb.velocity.x > 0;
