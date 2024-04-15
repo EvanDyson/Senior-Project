@@ -9,6 +9,7 @@ public class EnemyAI : MonoBehaviour
     public GameObject pointB;
     public float speed;
     public float chaseDistance;
+    
 
     //private Animator animation;
     private Rigidbody2D rb;
@@ -41,11 +42,11 @@ public class EnemyAI : MonoBehaviour
             
             if (Mathf.Abs(angle) < 90)
             {
-                transform.localScale = new Vector3(1f, transform.localScale.y);
+                transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y);
             }
             else if (Mathf.Abs(angle) > 90)
             {
-                transform.localScale = new Vector3(-1f, transform.localScale.y);
+                transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y);
             }
         }
         else
@@ -80,11 +81,11 @@ public class EnemyAI : MonoBehaviour
 
         if (movingLeft)
         {
-            transform.localScale = new Vector3(-1f, transform.localScale.y);
+            transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y);
         }
         if (movingRight)
         {
-            transform.localScale = new Vector3(1f, transform.localScale.y);
+            transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y);
         }
     }
 
