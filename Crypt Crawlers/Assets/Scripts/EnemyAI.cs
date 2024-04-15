@@ -9,6 +9,7 @@ public class EnemyAI : MonoBehaviour
     public GameObject pointB;
     public float speed;
     public float chaseDistance;
+    private float spriteSize;
 
     //private Animator animation;
     private Rigidbody2D rb;
@@ -19,6 +20,7 @@ public class EnemyAI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        spriteSize = transform.localScale.x;
         rb = GetComponent<Rigidbody2D>();
         currentTarget = pointB.transform;
         player = GameObject.Find("Player");
@@ -41,11 +43,11 @@ public class EnemyAI : MonoBehaviour
             
             if (Mathf.Abs(angle) < 90)
             {
-                transform.localScale = new Vector3(1f, transform.localScale.y);
+                transform.localScale = new Vector3(spriteSize, transform.localScale.y);
             }
             else if (Mathf.Abs(angle) > 90)
             {
-                transform.localScale = new Vector3(-1f, transform.localScale.y);
+                transform.localScale = new Vector3(-spriteSize, transform.localScale.y);
             }
         }
         else
@@ -80,11 +82,11 @@ public class EnemyAI : MonoBehaviour
 
         if (movingLeft)
         {
-            transform.localScale = new Vector3(-1f, transform.localScale.y);
+            transform.localScale = new Vector3(-spriteSize, transform.localScale.y);
         }
         if (movingRight)
         {
-            transform.localScale = new Vector3(1f, transform.localScale.y);
+            transform.localScale = new Vector3(spriteSize, transform.localScale.y);
         }
     }
 
