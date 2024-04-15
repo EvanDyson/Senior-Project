@@ -21,6 +21,7 @@ public class EnemyAI : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         currentTarget = pointB.transform;
+        player = GameObject.Find("Player");
         //SkeleFootsteps.enabled = true;
     }
 
