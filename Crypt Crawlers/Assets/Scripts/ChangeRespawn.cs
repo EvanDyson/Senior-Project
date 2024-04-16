@@ -21,7 +21,7 @@ public class ChangeRespawn : MonoBehaviour
         Debug.Log(collision.name);
         if (collision.name == "Player")
         {
-            Debug.Log("test");
+            
             if (respawnPoint != null)
             {
                 healthScript.respawnPoint = respawnPoint;
