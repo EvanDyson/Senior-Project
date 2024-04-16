@@ -10,6 +10,7 @@ public class ProjectileMovement : MonoBehaviour
     private float force;
     public float rotationSpeed;
     private EnemyHealth damage;
+    private DragonAI dragonAI_;
     public float attackPower = 25f;
     // Start is called before the first frame update
     void Start()
@@ -47,6 +48,11 @@ public class ProjectileMovement : MonoBehaviour
         {
             damage = collision.gameObject.GetComponent<EnemyHealth>();
             damage.TakeDamage(attackPower);
+        }
+        else if (collision.gameObject.tag == "Boss")
+        {
+            dragonAI_ = collision.gameObject.GetComponent<DragonAI>();
+            dragonAI_.TakeDamage(attackPower);
         }
         Destroy(gameObject, 0.1f);
     }

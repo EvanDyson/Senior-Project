@@ -10,6 +10,7 @@ public class PlayerMelee : MonoBehaviour
     public LayerMask whatIsEnemy;
     public float startTimeBtwAttack;
     private EnemyHealth enemyHealth;
+    private DragonAI dragonAI_;
     private float timeBtwAttack;
 
     // Start is called before the first frame update
@@ -34,6 +35,12 @@ public class PlayerMelee : MonoBehaviour
                         Debug.Log("meleeing" + enemiesToDamage[i].gameObject.name);
                         enemyHealth = enemiesToDamage[i].gameObject.GetComponent<EnemyHealth>();
                         enemyHealth.TakeDamage(damage);
+                    }
+                    if (enemiesToDamage[i].gameObject.tag == "Boss")
+                    {
+                        Debug.Log("meleeing" + enemiesToDamage[i].gameObject.name);
+                        dragonAI_ = enemiesToDamage[i].gameObject.GetComponent<DragonAI>();
+                        dragonAI_.TakeDamage(damage);
                     }
                 }
             }
