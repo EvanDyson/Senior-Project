@@ -14,7 +14,7 @@ public class PlayerHealth : MonoBehaviour
     public Sprite FirstHealthBarOutline;
     public Sprite SecondHealthBarOutline;
     private float playerSpeed;
-    [SerializeField] private Transform respawnPoint; // drag respawn point here in inspector
+    [SerializeField] public Transform respawnPoint; // drag respawn point here in inspector
     private bool imageChanged;
 
     // Start is called before the first frame update
