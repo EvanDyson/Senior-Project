@@ -11,6 +11,7 @@ public class ProjectileFire : MonoBehaviour
     public bool canFire;
     private float timer;
     public float timeBetweenFiring;
+    public float attackPower;
 
     //for force vector
     private float forceTimer;
@@ -53,6 +54,7 @@ public class ProjectileFire : MonoBehaviour
             GameObject copy = Instantiate(projectile, spawnPoint.position, Quaternion.identity);
             script = copy.GetComponent<ProjectileMovement>();
             script.ChangeSpeed(force);
+            script.ChangeDamage(attackPower);
             force = 0;
             canFire = false;
 
@@ -60,10 +62,10 @@ public class ProjectileFire : MonoBehaviour
         }
 
 
-        if (Input.GetMouseButton(1) && force < 9.0 && forceTimer > timeBetweenIncreasing && canFire)
+        if (Input.GetMouseButton(1) && force < 15.0 && forceTimer > timeBetweenIncreasing && canFire)
         {
             forceVector.transform.localScale += new Vector3(2, 0, 0);
-            force += 3.5f;
+            force += 7f;
             forceTimer = 0;
             
         }
