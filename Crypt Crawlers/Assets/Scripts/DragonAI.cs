@@ -1,18 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using UnityEngine;
 
 public class DragonAI : MonoBehaviour
 {
-    public float health = 1000f;
+    public float health = 10f;
     public float damage;
     public float speed;
     public float detectDistance;
+    public float shootDistance;
     private GameObject player;
     private Rigidbody2D rb;
     private float playerDistance;
     private float spriteSize;
     private SpriteRenderer spriteRenderer;
+    private Animator animation;
 
     // Start is called before the first frame update
     void Start()
@@ -21,6 +24,7 @@ public class DragonAI : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         player = GameObject.Find("Player");
         spriteRenderer = GetComponent<SpriteRenderer>();
+        animation = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -31,9 +35,34 @@ public class DragonAI : MonoBehaviour
         direction.Normalize();
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
-        //animator.SetFloat("Speed", Mathf.Abs(rb.velocity.x));
+        if (angle < 0 && playerDistance < shootDistance)
+        {
+            animation.SetBool("shootDown", true);
+        }
+        else 
+        {
+            animation.SetBool("shootDown", false);
+        }
 
-        if (playerDistance < detectDistance)
+        if (((angle > 0 && angle < 45) || (angle < 180 && angle > 135)) && playerDistance < shootDistance)
+        {
+            animation.SetBool("shoot", true);
+        }
+        else
+        {
+            animation.SetBool("shoot", false);
+        }
+
+        if ((angle > 45 && angle < 135) && playerDistance < shootDistance)
+        {
+            animation.SetBool("shootUp", true);
+        }
+        else
+        {
+            animation.SetBool("shootUp", false);
+        }
+
+        /*if (playerDistance < detectDistance)
         {
             transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, speed * Time.deltaTime);
 
@@ -45,23 +74,27 @@ public class DragonAI : MonoBehaviour
             {
                 transform.localScale = new Vector3(-spriteSize, transform.localScale.y);
             }
-        }
+        }*/
+        //Debug.Log(angle);
     }
     void FixedUpdate()
     {
-        CheckForFlipping();
+        Vector2 direction = player.transform.position - transform.position;
+        direction.Normalize();
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        CheckForFlipping(angle);
     }
 
-    private void CheckForFlipping()
+    private void CheckForFlipping(float angle)
     {
-        bool movingLeft = rb.velocity.x < 0;
-        bool movingRight = rb.velocity.x > 0;
+        bool playerOnLeft = angle > 90;
+        bool playerOnRight = angle < 90;
 
-        if (movingLeft)
+        if (playerOnLeft)
         {
             transform.localScale = new Vector3(-spriteSize, transform.localScale.y);
         }
-        if (movingRight)
+        if (playerOnRight)
         {
             transform.localScale = new Vector3(spriteSize, transform.localScale.y);
         }
@@ -75,7 +108,7 @@ public class DragonAI : MonoBehaviour
         // Check if health is less than or equal to 0
         if (health <= 0)
         {
-            gameObject.SetActive(false);
+            animation.SetBool("isDead", true);
         }
         // Call a function to handle the blinking effect
         BlinkRed();
@@ -112,7 +145,9 @@ public class DragonAI : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        Gizmos.color = Color.red;
+        Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position, detectDistance);
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, shootDistance);
     }
 }

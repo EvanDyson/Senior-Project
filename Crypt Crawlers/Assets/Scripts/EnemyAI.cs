@@ -11,11 +11,9 @@ public class EnemyAI : MonoBehaviour
     public float chaseDistance;
     private float spriteSize;
 
-    //private Animator animation;
     private Rigidbody2D rb;
     private Transform currentTarget;
     private float playerDistance;
-    //public AudioSource SkeleFootsteps;
 
     // Start is called before the first frame update
     void Start()
@@ -24,7 +22,6 @@ public class EnemyAI : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         currentTarget = pointB.transform;
         player = GameObject.Find("Player");
-        //SkeleFootsteps.enabled = true;
     }
 
     // Update is called once per frame
@@ -34,8 +31,6 @@ public class EnemyAI : MonoBehaviour
         Vector2 direction = player.transform.position - transform.position;
         direction.Normalize();
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-
-        //animator.SetFloat("Speed", Mathf.Abs(rb.velocity.x));
 
         if (playerDistance < chaseDistance)
         {
@@ -72,7 +67,6 @@ public class EnemyAI : MonoBehaviour
                 currentTarget = pointB.transform;
             }
         }
-        //CheckForFlipping();
     }
     void FixedUpdate()
     {
