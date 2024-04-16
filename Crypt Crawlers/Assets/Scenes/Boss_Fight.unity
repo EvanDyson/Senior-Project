@@ -3590,7 +3590,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 10
-  damage: 0
+  damage: 40
   speed: 0
   detectDistance: 75
   shootDistance: 7.35
