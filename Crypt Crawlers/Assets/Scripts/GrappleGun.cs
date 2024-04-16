@@ -26,7 +26,7 @@ public class GrappleGun : MonoBehaviour
     {
         delay += Time.deltaTime;
 
-        if (Input.GetMouseButtonDown(2) && delay > timeBtwShooting)
+        if (Input.GetKeyDown("w") && delay > timeBtwShooting)
         {
             RaycastHit2D hit = Physics2D.Raycast(
                 origin: Camera.main.ScreenToWorldPoint(Input.mousePosition),
@@ -49,7 +49,7 @@ public class GrappleGun : MonoBehaviour
             delay = 0;
         }
 
-        if (Input.GetMouseButtonUp(2))
+        if (Input.GetKeyUp("w"))
         {
             joint.enabled = false;
             rope.enabled = false;
