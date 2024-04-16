@@ -11,7 +11,7 @@ public class ProjectileMovement : MonoBehaviour
     public float rotationSpeed;
     private EnemyHealth damage;
     private DragonAI dragonAI_;
-    public float attackPower = 25f;
+    public float attackPower = 50f;
     // Start is called before the first frame update
     void Start()
     {
@@ -36,6 +36,10 @@ public class ProjectileMovement : MonoBehaviour
     public void ChangeSpeed(float newSpeed)
     {
         force = newSpeed;
+    }
+    public void ChangeDamage(float newDamage)
+    {
+        attackPower = newDamage;
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
