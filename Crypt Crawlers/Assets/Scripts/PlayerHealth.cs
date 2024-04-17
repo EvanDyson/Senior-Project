@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using static System.Net.Mime.MediaTypeNames;
@@ -34,6 +35,10 @@ public class PlayerHealth : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (transform.position.y <= -9)
+        {
+            Respawn();
+        }
         if (health > maxHealth)
             health = maxHealth;
         if (health <= 0)
@@ -67,33 +72,28 @@ public class PlayerHealth : MonoBehaviour
                 regenTimer = 0f;
             }
         }
+        
+    }
+    IEnumerator SlowDown(float duration)
+    {
+        playerMovement.moveSpeed = 1.5f;
+        yield return new WaitForSeconds(duration);
+        playerMovement.moveSpeed = playerSpeed;
+    }
 
-        void OnTriggerEnter2D(Collider2D collision)
+    void Respawn()
+    {
+        // reset player position to respawn point
+        transform.position = respawnPoint.position;
+        playerMovement.moveSpeed = playerSpeed;
+        health = maxHealth;
+
+    }
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.name == "shooting web(Clone)")
         {
-            if (collision.name == "shooting web(Clone)")
-            {
-                StartCoroutine(SlowDown(2.0f));
-            }
-            if (collision.CompareTag("deathline"))
-            {
-                Respawn();
-            }
-        }
-
-        IEnumerator SlowDown(float duration)
-        {
-            playerMovement.moveSpeed = 1.5f;
-            yield return new WaitForSeconds(duration);
-            playerMovement.moveSpeed = playerSpeed;
-        }
-
-        void Respawn()
-        {
-            // reset player position to respawn point
-            transform.position = respawnPoint.position;
-            playerMovement.moveSpeed = playerSpeed;
-            health = maxHealth;
-
+            StartCoroutine(SlowDown(2.0f));
         }
     }
 }
