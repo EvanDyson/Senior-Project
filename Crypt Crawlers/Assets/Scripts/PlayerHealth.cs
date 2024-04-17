@@ -16,6 +16,9 @@ public class PlayerHealth : MonoBehaviour
     private float playerSpeed;
     [SerializeField] public Transform respawnPoint; // drag respawn point here in inspector
     private bool imageChanged;
+    public float regenTimer;
+    public float delayTime;
+    public bool regenHealth;
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +27,8 @@ public class PlayerHealth : MonoBehaviour
         playerSpeed = playerMovement.moveSpeed;
         maxHealth = health;
         imageChanged = false;
+        regenHealth = false;
+        delayTime = 10f;
     }
 
     // Update is called once per frame
@@ -45,33 +50,50 @@ public class PlayerHealth : MonoBehaviour
             HealthBarOutline.sprite = FirstHealthBarOutline;
             imageChanged = false;
         }
-    }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.name == "shooting web(Clone)")
+        if (health < 50)
         {
-            StartCoroutine(SlowDown(2.0f));
+            regenTimer += Time.deltaTime;
+
+            if (regenTimer >= delayTime)
+            {
+                regenHealth = true;
+            }
+
+            if (regenHealth == true && health <= maxHealth)
+            {
+                health += 10;
+                regenHealth = false;
+                regenTimer = 0f;
+            }
         }
-        if (collision.CompareTag("deathline"))
+
+        void OnTriggerEnter2D(Collider2D collision)
         {
-            Respawn();
+            if (collision.name == "shooting web(Clone)")
+            {
+                StartCoroutine(SlowDown(2.0f));
+            }
+            if (collision.CompareTag("deathline"))
+            {
+                Respawn();
+            }
         }
-    }
 
-    IEnumerator SlowDown(float duration)
-    {
-        playerMovement.moveSpeed = 1.5f;
-        yield return new WaitForSeconds(duration);
-        playerMovement.moveSpeed = playerSpeed;
-    }
+        IEnumerator SlowDown(float duration)
+        {
+            playerMovement.moveSpeed = 1.5f;
+            yield return new WaitForSeconds(duration);
+            playerMovement.moveSpeed = playerSpeed;
+        }
 
-    private void Respawn()
-    {
-        // reset player position to respawn point
-        transform.position = respawnPoint.position;
-        playerMovement.moveSpeed = playerSpeed;
-        health = maxHealth;
+        void Respawn()
+        {
+            // reset player position to respawn point
+            transform.position = respawnPoint.position;
+            playerMovement.moveSpeed = playerSpeed;
+            health = maxHealth;
 
+        }
     }
 }
