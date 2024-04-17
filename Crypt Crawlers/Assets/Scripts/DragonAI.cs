@@ -15,7 +15,7 @@ public class DragonAI : MonoBehaviour
     private float playerDistance;
     private float spriteSize;
     private SpriteRenderer spriteRenderer;
-    private Animator animation;
+    public Animator animation;
 
     // Start is called before the first frame update
     void Start()
