@@ -8,7 +8,11 @@ public class Teleportation : MonoBehaviour
     public Transform destination;
     public KeyCode teleportKey = KeyCode.T;
     private bool canTeleport = false;
-
+    private LightFade fadeLight;
+    private void Start()
+    {
+        fadeLight = GetComponent<LightFade>();
+    }
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
@@ -30,6 +34,7 @@ public class Teleportation : MonoBehaviour
         if (canTeleport && Input.GetKeyDown(teleportKey))
         {
             TeleportPlayer();
+            fadeLight.StartFade();
         }
     }
 
