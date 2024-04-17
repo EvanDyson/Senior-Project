@@ -22,7 +22,7 @@ public class DragonFireHitbox : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            Debug.Log("Player hit by fire");
+            //Debug.Log("Player hit by fire");
             other.gameObject.GetComponent<PlayerHealth>().health -= damage;
         }
     }
