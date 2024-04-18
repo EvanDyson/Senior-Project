@@ -32,10 +32,10 @@ public class PlayerMovement : MonoBehaviour
         animator.SetFloat("Speed", Mathf.Abs(move.x));
 
         //test change sprite to dagger sprite
-        if (Input.GetKey(KeyCode.X))
-        {
-            animator.SetBool("hasDagger", true);
-        }
+        //if (Input.GetKey(KeyCode.X))
+        //{
+        //    animator.SetBool("hasDagger", true);
+        //}
 
         if (Input.GetButtonDown("Jump") && !isJumping)
         {
