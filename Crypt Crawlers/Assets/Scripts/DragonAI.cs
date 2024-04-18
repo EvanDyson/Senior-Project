@@ -1,21 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel.Design;
 using UnityEngine;
 
 public class DragonAI : MonoBehaviour
 {
-    public float health = 10f;
+    public float health;
+    private float maxHealth;
     public float damage;
     public float speed;
     public float detectDistance;
     public float shootDistance;
     private GameObject player;
-    private Rigidbody2D rb;
+    public Rigidbody2D rb;
     private float playerDistance;
     private float spriteSize;
     private SpriteRenderer spriteRenderer;
     public Animator animation;
+    public UnityEngine.UI.Image dragonHealthBar;
+
+    private bool shootingUp;
+    private bool shootingSide;
+    private bool shootingDown;
+    public bool movingToPlatform;
+
+    public bool movementOverride;
+    public bool leftPlatform;
+    public bool rightPlatform;
+    public GameObject leftPlatformObject;
+    public GameObject rightPlatformObject;
 
     // Start is called before the first frame update
     void Start()
@@ -25,57 +37,126 @@ public class DragonAI : MonoBehaviour
         player = GameObject.Find("Player");
         spriteRenderer = GetComponent<SpriteRenderer>();
         animation = GetComponent<Animator>();
+        maxHealth = health;
+        shootingUp = false;
+        shootingSide = false;
+        shootingDown = false;
+        movementOverride = false;
+        leftPlatform = false;
+        rightPlatform = false;
+        leftPlatformObject = GameObject.Find("leftPlatformLanding");
+        rightPlatformObject = GameObject.Find("rightPlatformLanding");
+        movingToPlatform = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+        dragonHealthBar.fillAmount = Mathf.Clamp(health / maxHealth, 0, 1);
+
         playerDistance = Vector2.Distance(transform.position, player.transform.position);
         Vector2 direction = player.transform.position - transform.position;
         direction.Normalize();
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
-        if (angle < 0 && playerDistance < shootDistance)
+        if (playerDistance > shootDistance)
         {
-            animation.SetBool("shootDown", true);
-        }
-        else 
-        {
-            animation.SetBool("shootDown", false);
-        }
-
-        if (((angle > 0 && angle < 45) || (angle < 180 && angle > 135)) && playerDistance < shootDistance)
-        {
-            animation.SetBool("shoot", true);
-        }
-        else
-        {
-            animation.SetBool("shoot", false);
-        }
-
-        if ((angle > 45 && angle < 135) && playerDistance < shootDistance)
-        {
-            animation.SetBool("shootUp", true);
-        }
-        else
-        {
-            animation.SetBool("shootUp", false);
-        }
-
-        /*if (playerDistance < detectDistance)
-        {
-            transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, speed * Time.deltaTime);
-
-            if (Mathf.Abs(angle) < 90)
+            if (shootingUp)
             {
-                transform.localScale = new Vector3(spriteSize, transform.localScale.y);
+                shootingUp = false;
+                animation.SetBool("shootUp", false);
             }
-            else if (Mathf.Abs(angle) > 90)
+            else if (shootingSide)
             {
-                transform.localScale = new Vector3(-spriteSize, transform.localScale.y);
+                shootingSide = false;
+                animation.SetBool("shoot", false);
             }
-        }*/
-        //Debug.Log(angle);
+            else if (shootingDown)
+            {
+                shootingDown = false;
+                animation.SetBool("shootDown", false);
+            }
+
+            if (playerDistance < detectDistance)
+            {
+                animation.SetBool("fly", true);
+                if (!movementOverride)
+                {
+                    movingToPlatform = false;
+                    //Debug.Log("should not see");
+                    transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, speed * Time.deltaTime);
+
+                    if (Mathf.Abs(angle) < 90)
+                    {
+                        transform.localScale = new Vector3(spriteSize, transform.localScale.y);
+                    }
+                    else if (Mathf.Abs(angle) > 90)
+                    {
+                        transform.localScale = new Vector3(-spriteSize, transform.localScale.y);
+                    }
+                }
+                else if (movementOverride && leftPlatform)
+                {
+                    movingToPlatform = true;
+                    rb.gravityScale = 0f;
+                    transform.position = Vector2.MoveTowards(this.transform.position, leftPlatformObject.transform.position, speed * Time.deltaTime);
+                    Vector3 vectorToTarget = leftPlatformObject.transform.position - transform.position;
+                    float angle2 = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg + 180;//
+                    Quaternion q = Quaternion.AngleAxis(angle2, Vector3.forward);
+                    transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * 10);
+                }
+                else if (movementOverride && rightPlatform)
+                {
+                    movingToPlatform = true;
+                    rb.gravityScale = 0f;
+                    transform.position = Vector2.MoveTowards(this.transform.position, rightPlatformObject.transform.position, speed * Time.deltaTime);
+                    Vector3 vectorToTarget = rightPlatformObject.transform.position - transform.position;
+                    float angle2 = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg + 180;//
+                    Quaternion q = Quaternion.AngleAxis(angle2, Vector3.forward);
+                    transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * 10);
+                }
+            }
+            else
+            {
+                animation.SetBool("fly", false);
+            }
+        }
+        else if (playerDistance < shootDistance && !movingToPlatform)
+        {
+            animation.SetBool("fly", false);
+            if (angle < 0)
+            {
+                shootingDown = true;
+                animation.SetBool("shootDown", true);
+            }
+            else
+            {
+                shootingDown = false;
+                animation.SetBool("shootDown", false);
+            }
+
+            if ((angle > 0 && angle < 45) || (angle < 180 && angle > 135))
+            {
+                shootingSide = true;
+                animation.SetBool("shoot", true);
+            }
+            else
+            {
+                shootingSide = false;
+                animation.SetBool("shoot", false);
+            }
+
+            if (angle > 45 && angle < 135)
+            {
+                shootingUp = true;
+                animation.SetBool("shootUp", true);
+            }
+            else
+            {
+                shootingUp = false;
+                animation.SetBool("shootUp", false);
+            }
+        }
     }
     void FixedUpdate()
     {

@@ -6,6 +6,7 @@ public class GrappleGun : MonoBehaviour
 {
     [SerializeField] private float grappleLength;
     [SerializeField] private LayerMask grappleLayer;
+    [SerializeField] private LayerMask grappleLayer2;
     [SerializeField] private LineRenderer rope;
     [SerializeField] private float timeBtwShooting;
 
@@ -32,7 +33,7 @@ public class GrappleGun : MonoBehaviour
                 origin: Camera.main.ScreenToWorldPoint(Input.mousePosition),
                 direction: Vector2.zero,
                 distance: Mathf.Infinity,
-                layerMask: grappleLayer
+                layerMask: grappleLayer | grappleLayer2
             );
 
             if (hit.collider != null)
