@@ -426,7 +426,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9a11e58937fd854389affb1dd70dc54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hoverHeight: 20
+  hoverHeight: 13
   hoverSpeed: 2
 --- !u!1 &946818356
 GameObject:
