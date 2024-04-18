@@ -17,44 +17,25 @@ public class PlayerMovement : MonoBehaviour
     //accessing the animator
     public Animator animator;
 
-    // Audio source for the running sound effect
-    private AudioSource audioSource;
-    public AudioClip runningSound;
-
     void Start()
     {
         SlingshotVectorObject = GameObject.Find("SlingshotForce");
         slingshotVectorSprite = SlingshotVectorObject.GetComponent<SpriteRenderer>();
         playerTransform = transform;
-
-        // Get the AudioSource component attached to the player object
-        audioSource = GetComponent<AudioSource>();
-        // Set the running sound effect to loop
-        audioSource.clip = runningSound;
-        audioSource.loop = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        // Check if the 'A' or 'D' keys are pressed
-        float horizontalInput = Input.GetAxisRaw("Horizontal");
-        move = new Vector3(horizontalInput, 0f, 0f);
+        move = new Vector3(Input.GetAxis("Horizontal"), 0f, 0f);
 
         animator.SetFloat("Speed", Mathf.Abs(move.x));
 
-        // Play the running sound effect if the player is moving horizontally and not jumping
-        if (horizontalInput != 0 && !isJumping)
-        {
-            if (!audioSource.isPlaying)
-            {
-                audioSource.Play();
-            }
-        }
-        else
-        {
-            audioSource.Stop();
-        }
+        //test change sprite to dagger sprite
+        //if (Input.GetKey(KeyCode.X))
+        //{
+        //    animator.SetBool("hasDagger", true);
+        //}
 
         if (Input.GetButtonDown("Jump") && !isJumping)
         {
