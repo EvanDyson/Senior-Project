@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class DragonAI : MonoBehaviour
 {
-    public float health = 10f;
+    public float health;
+    private float maxHealth;
     public float damage;
     public float speed;
     public float detectDistance;
@@ -16,6 +17,7 @@ public class DragonAI : MonoBehaviour
     private float spriteSize;
     private SpriteRenderer spriteRenderer;
     public Animator animation;
+    public UnityEngine.UI.Image dragonHealthBar;
 
     // Start is called before the first frame update
     void Start()
@@ -25,11 +27,14 @@ public class DragonAI : MonoBehaviour
         player = GameObject.Find("Player");
         spriteRenderer = GetComponent<SpriteRenderer>();
         animation = GetComponent<Animator>();
+        maxHealth = health;
     }
 
     // Update is called once per frame
     void Update()
     {
+        dragonHealthBar.fillAmount = Mathf.Clamp(health / maxHealth, 0, 1);
+
         playerDistance = Vector2.Distance(transform.position, player.transform.position);
         Vector2 direction = player.transform.position - transform.position;
         direction.Normalize();
