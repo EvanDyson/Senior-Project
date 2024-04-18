@@ -9,6 +9,7 @@ public class LightFade : MonoBehaviour
     private Light2D globalLight;
     private float targetIntensity = 1f; // Target intensity for the light
     private float intensityChangeSpeed = 1f; // Speed at which the intensity changes
+    public float envokeTime = 0.5f;
 
     void Start()
     {
@@ -25,7 +26,7 @@ public class LightFade : MonoBehaviour
         globalLight.intensity = 0f;
 
         // Call the method to gradually increase intensity after 0.3 seconds
-        Invoke("IncreaseIntensity", .5f);
+        Invoke("IncreaseIntensity", envokeTime);
     }
 
     void IncreaseIntensity()

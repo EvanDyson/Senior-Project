@@ -5,16 +5,16 @@ using UnityEngine.Rendering.Universal;
 
 public class FadeOut : MonoBehaviour
 {
-    private GameObject light; // Reference to the Global Light 2D object
-    private Light2D globalLight;
+    private GameObject light2; // Reference to the Global Light 2D object
+    private Light2D globalLight2;
     private float targetIntensity = 1f; // Target intensity for the light
     private float intensityChangeSpeed = 1f; // Speed at which the intensity changes
 
     void Start()
     {
         // Find the Global Light 2D object by name
-        light = GameObject.Find("Global Light 2D");
-        globalLight = light.GetComponent<Light2D>();
+        light2 = GameObject.Find("Global Light 2D");
+        globalLight2 = light.GetComponent<Light2D>();
 
 
 
