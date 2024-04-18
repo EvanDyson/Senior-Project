@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel.Design;
 using UnityEngine;
 
 public class DragonAI : MonoBehaviour
@@ -18,6 +17,9 @@ public class DragonAI : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     public Animator animation;
     public UnityEngine.UI.Image dragonHealthBar;
+
+    [SerializeField]
+    private Transform[] controlPoints;
 
     private bool shootingUp;
     private bool shootingSide;
