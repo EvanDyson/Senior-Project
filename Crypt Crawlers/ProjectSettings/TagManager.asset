@@ -48,6 +48,9 @@ TagManager:
   - name: CaveStuff
     uniqueID: 251869917
     locked: 0
+  - name: CaveEntrance
+    uniqueID: 3749116767
+    locked: 0
   - name: Background
     uniqueID: 360578089
     locked: 0
