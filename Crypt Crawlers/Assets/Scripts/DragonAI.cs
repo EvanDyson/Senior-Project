@@ -11,19 +11,23 @@ public class DragonAI : MonoBehaviour
     public float detectDistance;
     public float shootDistance;
     private GameObject player;
-    private Rigidbody2D rb;
+    public Rigidbody2D rb;
     private float playerDistance;
     private float spriteSize;
     private SpriteRenderer spriteRenderer;
     public Animator animation;
     public UnityEngine.UI.Image dragonHealthBar;
 
-    [SerializeField]
-    private Transform[] controlPoints;
-
     private bool shootingUp;
     private bool shootingSide;
     private bool shootingDown;
+    public bool movingToPlatform;
+
+    public bool movementOverride;
+    public bool leftPlatform;
+    public bool rightPlatform;
+    public GameObject leftPlatformObject;
+    public GameObject rightPlatformObject;
 
     // Start is called before the first frame update
     void Start()
@@ -37,6 +41,12 @@ public class DragonAI : MonoBehaviour
         shootingUp = false;
         shootingSide = false;
         shootingDown = false;
+        movementOverride = false;
+        leftPlatform = false;
+        rightPlatform = false;
+        leftPlatformObject = GameObject.Find("leftPlatformLanding");
+        rightPlatformObject = GameObject.Find("rightPlatformLanding");
+        movingToPlatform = false;
     }
 
     // Update is called once per frame
@@ -67,20 +77,51 @@ public class DragonAI : MonoBehaviour
                 animation.SetBool("shootDown", false);
             }
 
-            animation.SetBool("fly", true);
-
-            transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, speed * Time.deltaTime);
-
-            if (Mathf.Abs(angle) < 90)
+            if (playerDistance < detectDistance)
             {
-                transform.localScale = new Vector3(spriteSize, transform.localScale.y);
+                animation.SetBool("fly", true);
+                if (!movementOverride)
+                {
+                    movingToPlatform = false;
+                    //Debug.Log("should not see");
+                    transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, speed * Time.deltaTime);
+
+                    if (Mathf.Abs(angle) < 90)
+                    {
+                        transform.localScale = new Vector3(spriteSize, transform.localScale.y);
+                    }
+                    else if (Mathf.Abs(angle) > 90)
+                    {
+                        transform.localScale = new Vector3(-spriteSize, transform.localScale.y);
+                    }
+                }
+                else if (movementOverride && leftPlatform)
+                {
+                    movingToPlatform = true;
+                    rb.gravityScale = 0f;
+                    transform.position = Vector2.MoveTowards(this.transform.position, leftPlatformObject.transform.position, speed * Time.deltaTime);
+                    Vector3 vectorToTarget = leftPlatformObject.transform.position - transform.position;
+                    float angle2 = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg + 180;//
+                    Quaternion q = Quaternion.AngleAxis(angle2, Vector3.forward);
+                    transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * 10);
+                }
+                else if (movementOverride && rightPlatform)
+                {
+                    movingToPlatform = true;
+                    rb.gravityScale = 0f;
+                    transform.position = Vector2.MoveTowards(this.transform.position, rightPlatformObject.transform.position, speed * Time.deltaTime);
+                    Vector3 vectorToTarget = rightPlatformObject.transform.position - transform.position;
+                    float angle2 = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg + 180;//
+                    Quaternion q = Quaternion.AngleAxis(angle2, Vector3.forward);
+                    transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * 10);
+                }
             }
-            else if (Mathf.Abs(angle) > 90)
+            else
             {
-                transform.localScale = new Vector3(-spriteSize, transform.localScale.y);
+                animation.SetBool("fly", false);
             }
         }
-        else if (playerDistance < shootDistance)
+        else if (playerDistance < shootDistance && !movingToPlatform)
         {
             animation.SetBool("fly", false);
             if (angle < 0)
