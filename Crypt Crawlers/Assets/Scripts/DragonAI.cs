@@ -19,6 +19,10 @@ public class DragonAI : MonoBehaviour
     public Animator animation;
     public UnityEngine.UI.Image dragonHealthBar;
 
+    private bool shootingUp;
+    private bool shootingSide;
+    private bool shootingDown;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +32,9 @@ public class DragonAI : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         animation = GetComponent<Animator>();
         maxHealth = health;
+        shootingUp = false;
+        shootingSide = false;
+        shootingDown = false;
     }
 
     // Update is called once per frame
@@ -40,35 +47,26 @@ public class DragonAI : MonoBehaviour
         direction.Normalize();
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
-        if (angle < 0 && playerDistance < shootDistance)
+        if (playerDistance > shootDistance)
         {
-            animation.SetBool("shootDown", true);
-        }
-        else 
-        {
-            animation.SetBool("shootDown", false);
-        }
+            if (shootingUp)
+            {
+                shootingUp = false;
+                animation.SetBool("shootUp", false);
+            }
+            else if (shootingSide)
+            {
+                shootingSide = false;
+                animation.SetBool("shoot", false);
+            }
+            else if (shootingDown)
+            {
+                shootingDown = false;
+                animation.SetBool("shootDown", false);
+            }
 
-        if (((angle > 0 && angle < 45) || (angle < 180 && angle > 135)) && playerDistance < shootDistance)
-        {
-            animation.SetBool("shoot", true);
-        }
-        else
-        {
-            animation.SetBool("shoot", false);
-        }
+            animation.SetBool("fly", true);
 
-        if ((angle > 45 && angle < 135) && playerDistance < shootDistance)
-        {
-            animation.SetBool("shootUp", true);
-        }
-        else
-        {
-            animation.SetBool("shootUp", false);
-        }
-
-        /*if (playerDistance < detectDistance)
-        {
             transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, speed * Time.deltaTime);
 
             if (Mathf.Abs(angle) < 90)
@@ -79,8 +77,43 @@ public class DragonAI : MonoBehaviour
             {
                 transform.localScale = new Vector3(-spriteSize, transform.localScale.y);
             }
-        }*/
-        //Debug.Log(angle);
+        }
+        else if (playerDistance < shootDistance)
+        {
+            animation.SetBool("fly", false);
+            if (angle < 0)
+            {
+                shootingDown = true;
+                animation.SetBool("shootDown", true);
+            }
+            else
+            {
+                shootingDown = false;
+                animation.SetBool("shootDown", false);
+            }
+
+            if ((angle > 0 && angle < 45) || (angle < 180 && angle > 135))
+            {
+                shootingSide = true;
+                animation.SetBool("shoot", true);
+            }
+            else
+            {
+                shootingSide = false;
+                animation.SetBool("shoot", false);
+            }
+
+            if (angle > 45 && angle < 135)
+            {
+                shootingUp = true;
+                animation.SetBool("shootUp", true);
+            }
+            else
+            {
+                shootingUp = false;
+                animation.SetBool("shootUp", false);
+            }
+        }
     }
     void FixedUpdate()
     {
