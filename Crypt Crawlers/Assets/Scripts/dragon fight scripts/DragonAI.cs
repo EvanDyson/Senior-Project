@@ -26,9 +26,13 @@ public class DragonAI : MonoBehaviour
     public bool movementOverride;
     public bool playerOnGround;
 
+    public GameObject Dragon;
+    private DragonAI dragonScript;
+
     // Start is called before the first frame update
     void Start()
     {
+        dragonScript = Dragon.GetComponent<DragonAI>();
         spriteSize = transform.localScale.x;
         rb = GetComponent<Rigidbody2D>();
         player = GameObject.Find("Player");
@@ -49,6 +53,11 @@ public class DragonAI : MonoBehaviour
     {
         //dragon health bar filling
         dragonHealthBar.fillAmount = Mathf.Clamp(health / maxHealth, 0, 1);
+
+        if (health <= 0)
+        {
+            death();
+        }
 
         //player distance calculation
         playerDistance = Vector2.Distance(transform.position, player.transform.position);
@@ -241,5 +250,16 @@ public class DragonAI : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, detectDistance);
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, shootDistance);
+    }
+
+    private void death()
+    {
+        animation.SetBool("shootUp", false);
+        animation.SetBool("shootDown", false);
+        animation.SetBool("shoot", false);
+        animation.SetBool("fly", false);
+        animation.SetBool("canShoot", false);
+        animation.SetBool("isDead", true);
+        dragonScript.enabled = false;
     }
 }
