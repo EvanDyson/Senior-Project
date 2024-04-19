@@ -20,6 +20,10 @@ public class enemyDamage : MonoBehaviour
 
     public void OnCollisionEnter2D(Collision2D other)
     {
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            Physics2D.IgnoreCollision(other.collider, GetComponent<Collider2D>());
+        }
         if (other.gameObject.CompareTag("Player"))
         {
             other.gameObject.GetComponent<PlayerHealth>().health -= damage;

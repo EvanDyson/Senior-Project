@@ -12,6 +12,9 @@ public class PlayerHealth : MonoBehaviour
     public float maxHealth;
     public UnityEngine.UI.Image HealthBar;
     public UnityEngine.UI.Image HealthBarOutline;
+    public UnityEngine.UI.Image HealthBarStatus;
+    public UnityEngine.UI.Image StatusEffectBar;
+    public Sprite SpiderSlowdown;
     public Sprite FirstHealthBarOutline;
     public Sprite SecondHealthBarOutline;
     private float playerSpeed;
@@ -20,6 +23,10 @@ public class PlayerHealth : MonoBehaviour
     public float regenTimer;
     public float delayTime;
     public bool regenHealth;
+
+    private float effectTimer = 2.5f;
+    private float currentTime;
+    private bool isSlowed = false;
 
     // Start is called before the first frame update
     void Start()
@@ -72,20 +79,30 @@ public class PlayerHealth : MonoBehaviour
                 regenTimer = 0f;
             }
         }
+
+        if (isSlowed)
+        {
+            currentTime -= Time.deltaTime;
+            if (currentTime <= 0)
+            {
+                playerMovement.moveSpeed = playerSpeed;
+                StatusEffectBar.sprite = FirstHealthBarOutline;
+                isSlowed = false;
+            }
+        }
+
+
         
     }
-    IEnumerator SlowDown(float duration)
-    {
-        playerMovement.moveSpeed = 1.5f;
-        yield return new WaitForSeconds(duration);
-        playerMovement.moveSpeed = playerSpeed;
-    }
+    
 
     void Respawn()
     {
         // reset player position to respawn point
         transform.position = respawnPoint.position;
         playerMovement.moveSpeed = playerSpeed;
+        StatusEffectBar.sprite = FirstHealthBarOutline;
+        isSlowed = false;
         health = maxHealth;
 
     }
@@ -93,7 +110,18 @@ public class PlayerHealth : MonoBehaviour
     {
         if (collision.name == "shooting web(Clone)")
         {
-            StartCoroutine(SlowDown(2.0f));
+            if (!isSlowed)
+            {
+                StatusEffectBar.sprite = SpiderSlowdown;
+                playerMovement.moveSpeed = 1.5f;
+                isSlowed = true;
+                currentTime = effectTimer;
+            }
+            else
+            {
+                currentTime = effectTimer;
+            }
+            
         }
     }
 }
