@@ -3,23 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 
-public class DoorClose : MonoBehaviour
+public class DoorControl : MonoBehaviour
 {
     public Camera bossFightCamera;
     public Camera startingCamera;
     public CinemachineVirtualCamera cinCam;
-    public Animator DoorControl;
+    public Animator DoorController;
 
     void Start()
     {
-        DoorControl.SetBool("closeDoor", false);
+        DoorController.SetBool("closeDoor", false);
     }
 
-        private void OnTriggerEnter2D(Collider2D other)
+
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
-            DoorControl.SetBool("closeDoor", true);
+            DoorController.SetBool("closeDoor", true);
             startingCamera.enabled = false;
             bossFightCamera.enabled = true;
             cinCam.enabled = true;
