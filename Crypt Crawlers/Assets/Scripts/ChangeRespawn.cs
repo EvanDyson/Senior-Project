@@ -6,6 +6,7 @@ public class ChangeRespawn : MonoBehaviour
 {
     private PlayerHealth healthScript;
     private GameObject player;
+    public bool NewLevel = false;
     [SerializeField] public Transform respawnPoint;
     // Start is called before the first frame update
     void Start()
@@ -20,10 +21,16 @@ public class ChangeRespawn : MonoBehaviour
         Debug.Log(collision.name);
         if (collision.name == "Player")
         {
-            
+
             if (respawnPoint != null)
             {
                 healthScript.respawnPoint = respawnPoint;
+                //respawn at newPoint
+                if (NewLevel)
+                {
+                    healthScript.Respawn();
+                }
+                   
             }
             else
             {
