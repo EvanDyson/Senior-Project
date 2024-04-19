@@ -19,7 +19,8 @@ public class middleLeftPlatformTrigger : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             dragonScript.movementOverride = true;
-            dragonScript.playerInTrigger = true;
+            dragonScript.playerOnPlatform = true;
+            dragonScript.animation.SetBool("canShoot", true);
         }
     }
 
@@ -28,7 +29,9 @@ public class middleLeftPlatformTrigger : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             dragonScript.movementOverride = false;
-            dragonScript.playerInTrigger = false;
+            dragonScript.playerOnPlatform = false;
+            dragonScript.animation.SetBool("canShoot", false);
+            dragonScript.animation.SetBool("fly", true);
         }
     }
 }

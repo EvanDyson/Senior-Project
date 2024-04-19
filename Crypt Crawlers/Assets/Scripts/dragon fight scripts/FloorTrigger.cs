@@ -12,21 +12,13 @@ public class FloorTrigger : MonoBehaviour
         dragonScript = Dragon.GetComponent<DragonAI>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private void OnTriggerStay2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
-            //Debug.Log("On the floor");
-            dragonScript.movementOverride = false;
+            dragonScript.playerOnGround = true;
             dragonScript.rb.gravityScale = 1f;
             dragonScript.animation.SetBool("canShoot", true);
-            dragonScript.playerInTrigger = true;
         }
     }
 
@@ -34,8 +26,9 @@ public class FloorTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            dragonScript.playerInTrigger = false;
+            dragonScript.playerOnGround = false;
             dragonScript.rb.gravityScale = 0f;
+            dragonScript.animation.SetBool("canShoot", false);
         }
     }
 }
