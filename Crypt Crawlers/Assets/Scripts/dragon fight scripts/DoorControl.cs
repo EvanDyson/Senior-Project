@@ -10,14 +10,19 @@ public class DoorClose : MonoBehaviour
     public CinemachineVirtualCamera cinCam;
     public Animator DoorControl;
 
-    private void OnTriggerEnter2D(Collider2D other)
+    void Start()
+    {
+        DoorControl.SetBool("closeDoor", false);
+    }
+
+        private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
+            DoorControl.SetBool("closeDoor", true);
             startingCamera.enabled = false;
             bossFightCamera.enabled = true;
             cinCam.enabled = true;
-            DoorControl.SetBool("closeDoor", true);
         }
     }
 }
