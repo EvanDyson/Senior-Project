@@ -27,6 +27,10 @@ public class EnemyAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
+    }
+    void FixedUpdate()
+    {
         playerDistance = Vector2.Distance(transform.position, player.transform.position);
         Vector2 direction = player.transform.position - transform.position;
         direction.Normalize();
@@ -35,7 +39,7 @@ public class EnemyAI : MonoBehaviour
         if (playerDistance < chaseDistance)
         {
             transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, speed * Time.deltaTime);
-            
+
             if (Mathf.Abs(angle) < 90)
             {
                 transform.localScale = new Vector3(spriteSize, transform.localScale.y);
@@ -47,6 +51,21 @@ public class EnemyAI : MonoBehaviour
         }
         else
         {
+            //Debug.Log("skele " + transform.position);
+            //Debug.Log("current target " + currentTarget.position);
+
+            if (playerDistance > chaseDistance)
+            {
+                if (transform.position.x > currentTarget.position.x)
+                {
+                    rb.velocity = new Vector3(-speed, 0, 1);
+                }
+                else if (transform.position.x < currentTarget.position.x)
+                {
+                    rb.velocity = new Vector3(speed, 0, 1);
+                }
+            }
+
             //going to target on the right pointB
             if (currentTarget == pointB.transform)
             {
@@ -58,22 +77,19 @@ public class EnemyAI : MonoBehaviour
                 rb.velocity = new Vector2(-speed, 0);
             }
 
-            if (Vector2.Distance(transform.position, currentTarget.position) < 0.5f && currentTarget == pointB.transform)
+            if (Vector2.Distance(transform.position, currentTarget.position) < 1f && currentTarget == pointB.transform)
             {
                 currentTarget = pointA.transform;
             }
-            if (Vector2.Distance(transform.position, currentTarget.position) < 0.5f && currentTarget == pointA.transform)
+            if (Vector2.Distance(transform.position, currentTarget.position) < 1f && currentTarget == pointA.transform)
             {
                 currentTarget = pointB.transform;
             }
         }
-    }
-    void FixedUpdate()
-    {
         CheckForFlipping();
     }
 
-        private void CheckForFlipping()
+    private void CheckForFlipping()
     {
         bool movingLeft = rb.velocity.x < 0;
         bool movingRight = rb.velocity.x > 0;
