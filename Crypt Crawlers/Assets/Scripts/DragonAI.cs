@@ -22,6 +22,7 @@ public class DragonAI : MonoBehaviour
     private bool shootingSide;
     private bool shootingDown;
     public bool movingToPlatform;
+    public bool inTrigger;
 
     public bool movementOverride;
     public bool leftPlatform;
@@ -47,6 +48,7 @@ public class DragonAI : MonoBehaviour
         leftPlatformObject = GameObject.Find("leftPlatformLanding");
         rightPlatformObject = GameObject.Find("rightPlatformLanding");
         movingToPlatform = false;
+        inTrigger = false;
     }
 
     // Update is called once per frame
@@ -101,7 +103,7 @@ public class DragonAI : MonoBehaviour
                     rb.gravityScale = 0f;
                     transform.position = Vector2.MoveTowards(this.transform.position, leftPlatformObject.transform.position, speed * Time.deltaTime);
                     Vector3 vectorToTarget = leftPlatformObject.transform.position - transform.position;
-                    float angle2 = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg + 180;//
+                    float angle2 = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg + 180;
                     Quaternion q = Quaternion.AngleAxis(angle2, Vector3.forward);
                     transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * 10);
                 }
@@ -111,7 +113,7 @@ public class DragonAI : MonoBehaviour
                     rb.gravityScale = 0f;
                     transform.position = Vector2.MoveTowards(this.transform.position, rightPlatformObject.transform.position, speed * Time.deltaTime);
                     Vector3 vectorToTarget = rightPlatformObject.transform.position - transform.position;
-                    float angle2 = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg + 180;//
+                    float angle2 = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg + 180;
                     Quaternion q = Quaternion.AngleAxis(angle2, Vector3.forward);
                     transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * 10);
                 }
@@ -121,7 +123,7 @@ public class DragonAI : MonoBehaviour
                 animation.SetBool("fly", false);
             }
         }
-        else if (playerDistance < shootDistance && !movingToPlatform)
+        else if (playerDistance < shootDistance && !movingToPlatform && inTrigger)
         {
             animation.SetBool("fly", false);
             if (angle < 0)

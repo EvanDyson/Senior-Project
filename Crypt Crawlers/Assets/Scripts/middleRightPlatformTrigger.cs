@@ -21,8 +21,16 @@ public class middleRightPlatformTrigger : MonoBehaviour
             //Debug.Log("Player on right platform");
             dragonScript.movementOverride = true;
             dragonScript.rightPlatform = true;
+            dragonScript.inTrigger = true;
+        }
+        if (other.CompareTag("Boss"))
+        {
+            dragonScript.movingToPlatform = false;
+            dragonScript.animation.SetBool("canShoot", true);
+            dragonScript.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
     }
+
     private void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
@@ -30,12 +38,7 @@ public class middleRightPlatformTrigger : MonoBehaviour
             //Debug.Log("Player leaving right platform");
             dragonScript.movementOverride = false;
             dragonScript.rightPlatform = false;
-        }
-        if (other.CompareTag("Boss"))
-        {
-            dragonScript.movingToPlatform = false;
-            dragonScript.animation.SetBool("canShoot", true);
-            dragonScript.transform.rotation = Quaternion.Euler(0,0,0);
+            dragonScript.inTrigger = false;
         }
     }
 }

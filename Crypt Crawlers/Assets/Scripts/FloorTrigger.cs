@@ -24,8 +24,18 @@ public class FloorTrigger : MonoBehaviour
         {
             //Debug.Log("On the floor");
             dragonScript.movementOverride = false;
-            dragonScript.rb.gravityScale = 200f;
+            dragonScript.rb.gravityScale = 1f;
             dragonScript.animation.SetBool("canShoot", true);
+            dragonScript.inTrigger = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            dragonScript.inTrigger = false;
+            dragonScript.rb.gravityScale = 0f;
         }
     }
 }

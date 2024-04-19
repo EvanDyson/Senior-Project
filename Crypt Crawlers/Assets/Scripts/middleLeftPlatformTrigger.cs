@@ -7,13 +7,11 @@ public class middleLeftPlatformTrigger : MonoBehaviour
 {
     public GameObject Dragon;
     private DragonAI dragonScript;
-    public bool inTrigger;
 
     // Start is called before the first frame update
     void Start()
     {
         dragonScript = Dragon.GetComponent<DragonAI>();
-        inTrigger = false;
     }
 
     private void OnTriggerStay2D(Collider2D other)
@@ -21,9 +19,15 @@ public class middleLeftPlatformTrigger : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             //Debug.Log("Player on left platform");
-            inTrigger = true;
             dragonScript.movementOverride = true;
             dragonScript.leftPlatform = true;
+            dragonScript.inTrigger = true;
+        }
+        if (other.CompareTag("Boss"))
+        {
+            dragonScript.movingToPlatform = false;
+            dragonScript.animation.SetBool("canShoot", true);
+            dragonScript.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
     }
 
@@ -34,12 +38,7 @@ public class middleLeftPlatformTrigger : MonoBehaviour
             //Debug.Log("Player leaving right platform");
             dragonScript.movementOverride = false;
             dragonScript.leftPlatform = false;
-        }
-        if (other.CompareTag("Boss"))
-        {
-            dragonScript.movingToPlatform = false;
-            dragonScript.animation.SetBool("canShoot", true);
-            dragonScript.transform.rotation = Quaternion.Euler(0, 0, 0);
+            dragonScript.inTrigger = false;
         }
     }
 }
