@@ -42,10 +42,10 @@ public class PlayerHealth : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (transform.position.y <= -9)
-        {
-            Respawn();
-        }
+        //if (transform.position.y <= -9)
+        //{
+        //    Respawn();
+        //}
         if (health > maxHealth)
             health = maxHealth;
         if (health <= 0)

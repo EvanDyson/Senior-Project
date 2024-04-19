@@ -231,7 +231,6 @@ public class DragonAI : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            Physics2D.IgnoreCollision(other.collider, GetComponent<Collider2D>());
             other.gameObject.GetComponent<PlayerHealth>().health -= damage;
         }
     }
