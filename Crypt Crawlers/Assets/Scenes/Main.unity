@@ -1766,7 +1766,7 @@ Transform:
   m_GameObject: {fileID: 134886063}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 434, y: 4.5, z: 0}
+  m_LocalPosition: {x: -30.56, y: 0.9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6871,8 +6871,8 @@ GameObject:
   - component: {fileID: 409502977}
   - component: {fileID: 409502979}
   - component: {fileID: 409502978}
-  m_Layer: 5
-  m_Name: title_card
+  m_Layer: 20
+  m_Name: opaquePauseBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6887,15 +6887,15 @@ RectTransform:
   m_GameObject: {fileID: 409502975}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 92.172005, y: 92.172005, z: 3.1361687}
+  m_LocalScale: {x: 9999, y: 9999, z: 3.1361687}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1846194910}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -3.4, y: 86.1}
-  m_SizeDelta: {x: 4, y: 4}
+  m_AnchoredPosition: {x: -4.289, y: -105.4}
+  m_SizeDelta: {x: 7.47, y: 13.02}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!212 &409502977
 SpriteRenderer:
@@ -6938,12 +6938,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: 21300000, guid: 8592821156f57ca47af842cad4ec2ae6, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Color: {r: 0.2264151, g: 0.2264151, b: 0.2264151, a: 0.7294118}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 4, y: 4}
+  m_Size: {x: 0.16, y: 0.16}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -10906,7 +10906,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
-  m_ApplyToSortingLayers: 00000000dd72cdb54be03085f56027da41bd91b129fc7d15dd3a030feb7ea54b
+  m_ApplyToSortingLayers: 00000000dd72cdb54be03085f56027da41bd91b129fc7d15dd3a030feb7ea54b4db0eaaf
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -26054,7 +26054,7 @@ GameObject:
   - component: {fileID: 1341275057}
   - component: {fileID: 1341275056}
   - component: {fileID: 1341275058}
-  m_Layer: 5
+  m_Layer: 20
   m_Name: Resume
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26102,8 +26102,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Resume
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: eb9cad5b38acc0a4fa8c46b729f0abf2, type: 2}
+  m_sharedMaterial: {fileID: 7020283214347008023, guid: eb9cad5b38acc0a4fa8c46b729f0abf2, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -30688,6 +30688,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: OrcMobPatrol
       objectReference: {fileID: 0}
+    - target: {fileID: 7988284104601777577, guid: 2ee21e36762284c42bcb53150f690e8b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -286.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7988284104601777577, guid: 2ee21e36762284c42bcb53150f690e8b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 9.4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -32513,7 +32521,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   points:
   - {fileID: 1494294525}
-  - {fileID: 0}
+  - {fileID: 1081561744}
   speed: 3
   chaseRange: 5
 --- !u!212 &1696323946
@@ -35113,7 +35121,7 @@ GameObject:
   - component: {fileID: 1826746502}
   - component: {fileID: 1826746501}
   - component: {fileID: 1826746503}
-  m_Layer: 5
+  m_Layer: 20
   m_Name: Menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -35161,8 +35169,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Menu
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: eb9cad5b38acc0a4fa8c46b729f0abf2, type: 2}
+  m_sharedMaterial: {fileID: 7020283214347008023, guid: eb9cad5b38acc0a4fa8c46b729f0abf2, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -35479,7 +35487,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   points:
   - {fileID: 1460707991}
-  - {fileID: 0}
+  - {fileID: 112173889}
   speed: 3
   chaseRange: 5
 --- !u!212 &1828436429
@@ -35817,7 +35825,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 100}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!4 &1846326810 stripped
@@ -37310,7 +37318,7 @@ GameObject:
   - component: {fileID: 1922076897}
   - component: {fileID: 1922076896}
   - component: {fileID: 1922076898}
-  m_Layer: 5
+  m_Layer: 20
   m_Name: Quit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37358,8 +37366,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Quit
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: eb9cad5b38acc0a4fa8c46b729f0abf2, type: 2}
+  m_sharedMaterial: {fileID: 7020283214347008023, guid: eb9cad5b38acc0a4fa8c46b729f0abf2, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

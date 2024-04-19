@@ -28,11 +28,11 @@ public class frogController : MonoBehaviour
     {
         timer += Time.deltaTime;
 
-        if (timer > 2)
+        if (timer > 10)
         {
             animation.SetBool("dance", true);
             speed = 0f;
-            if (timer > 6)
+            if (timer > 15)
             {
                 timer = 0f;
             }

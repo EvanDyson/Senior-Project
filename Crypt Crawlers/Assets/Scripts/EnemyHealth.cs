@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
-    public float health = 100f;
+    public float health;
     private SpriteRenderer spriteRenderer;
 
     private void Start()
     {
         // Get the SpriteRenderer component attached to the GameObject
         spriteRenderer = GetComponent<SpriteRenderer>();
+        health = 100f;
     }
 
     private void Update()
