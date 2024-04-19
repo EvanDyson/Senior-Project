@@ -12,6 +12,7 @@ public class PlayerHealth : MonoBehaviour
     public float maxHealth;
     public UnityEngine.UI.Image HealthBar;
     public UnityEngine.UI.Image HealthBarOutline;
+    public Sprite SpiderSlowdown;
     public Sprite FirstHealthBarOutline;
     public Sprite SecondHealthBarOutline;
     private float playerSpeed;
@@ -76,9 +77,11 @@ public class PlayerHealth : MonoBehaviour
     }
     IEnumerator SlowDown(float duration)
     {
+        HealthBarOutline.sprite = SpiderSlowdown;
         playerMovement.moveSpeed = 1.5f;
         yield return new WaitForSeconds(duration);
         playerMovement.moveSpeed = playerSpeed;
+        HealthBarOutline.sprite = FirstHealthBarOutline;
     }
 
     void Respawn()

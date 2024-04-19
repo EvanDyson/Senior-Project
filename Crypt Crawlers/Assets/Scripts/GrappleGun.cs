@@ -9,6 +9,7 @@ public class GrappleGun : MonoBehaviour
     [SerializeField] private LayerMask grappleLayer2;
     [SerializeField] private LineRenderer rope;
     [SerializeField] private float timeBtwShooting;
+    private DistanceJoint2D grappleLine;
 
     private Vector3 grapplePoint;
     private DistanceJoint2D joint;
