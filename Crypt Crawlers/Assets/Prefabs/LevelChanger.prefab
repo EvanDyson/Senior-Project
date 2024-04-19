@@ -844,7 +844,7 @@ GameObject:
   - component: {fileID: 4855600504479860250}
   - component: {fileID: 6854897474545640753}
   - component: {fileID: 8737277814813071557}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Floor (13)
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -1035,7 +1035,7 @@ GameObject:
   - component: {fileID: 3278793119727570560}
   - component: {fileID: 8555609717976207235}
   - component: {fileID: 6130590673387667664}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Floor (13)2
   m_TagString: Ground
   m_Icon: {fileID: 0}

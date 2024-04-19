@@ -36,7 +36,8 @@ public class ArrowMovement : MonoBehaviour
         {
             collision.gameObject.SetActive(false);
         }
-        Destroy(gameObject, 0.01f);
+        Destroy(gameObject);
+        //Destroy(gameObject, 0.0f);
     }
 
 }
