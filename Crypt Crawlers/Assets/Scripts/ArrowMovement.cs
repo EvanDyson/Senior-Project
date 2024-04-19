@@ -7,6 +7,7 @@ public class ArrowMovement : MonoBehaviour
     private Rigidbody2D rb;
     private float force;
     private int direction = -1;
+    public float damage = 50f;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,15 +30,16 @@ public class ArrowMovement : MonoBehaviour
         direction = dir;
         force = newSpeed;
     }
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        
-        if (collision.gameObject.tag == "Breakable")
+
+        if (other.gameObject.CompareTag("Player"))
         {
-            collision.gameObject.SetActive(false);
+            other.gameObject.GetComponent<PlayerHealth>().health -= damage;
+            Debug.Log("buggy");
+            Destroy(gameObject,0.1f);
         }
-        Destroy(gameObject);
-        //Destroy(gameObject, 0.0f);
+        
     }
 
 }

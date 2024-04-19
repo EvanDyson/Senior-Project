@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1042246176655583179}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: slime_point_A
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47,7 +47,7 @@ GameObject:
   - component: {fileID: 2341001857087510540}
   - component: {fileID: 6549026092348752724}
   - component: {fileID: 4456893331067576942}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Slime
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -212,7 +212,7 @@ CapsuleCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -258,7 +258,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5455686757227772809}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: SlimeMob
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -292,7 +292,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9202163360917769182}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: slime_point_B
   m_TagString: Untagged
   m_Icon: {fileID: 0}
