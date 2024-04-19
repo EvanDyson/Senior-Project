@@ -324,3 +324,4 @@ MonoBehaviour:
   trigger: {fileID: 7949064142140406707}
   spawnPoint: {fileID: 526865328086941663}
   force: 4
+  spawnDuration: 1

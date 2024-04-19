@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6771937099187455132}
   - component: {fileID: 6194538386313865873}
   - component: {fileID: 764686822304323638}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: Spike Trap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -109,7 +109,7 @@ Rigidbody2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1

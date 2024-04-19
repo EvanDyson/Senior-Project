@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 8619443767243493408}
   - component: {fileID: 7432314123486669399}
   - component: {fileID: 3549834297928113316}
-  - component: {fileID: -3028075154171093791}
   m_Layer: 0
   m_Name: Dart(Default)
   m_TagString: Untagged
@@ -117,7 +116,7 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -160,18 +159,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3e32118a6ece75a4dba218e8f85255b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &-3028075154171093791
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4073663359250581260}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cda2368e693cf48e1b9ec484c1f51166, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 50
