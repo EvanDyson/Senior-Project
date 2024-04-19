@@ -12,7 +12,7 @@ public class DartSpawn : MonoBehaviour
     private bool leftDir = true;
     public float spawnDuration = 1.0f;
 
-    private float spawnTime = .2f;
+    private float spawnTime = .4f;
     private float spawnTimer;
     private bool canSpawn = true;
     // Start is called before the first frame update
