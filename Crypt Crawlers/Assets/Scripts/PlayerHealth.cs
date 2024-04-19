@@ -42,10 +42,11 @@ public class PlayerHealth : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if (transform.position.y <= -9)
-        //{
-        //    Respawn();
-        //}
+        // Out of bounds check to make sure the play
+        if (transform.position.y <= -9)
+        {
+            Respawn();
+        }
         if (health > maxHealth)
             health = maxHealth;
         if (health <= 0)
@@ -96,7 +97,7 @@ public class PlayerHealth : MonoBehaviour
     }
     
 
-    void Respawn()
+    public void Respawn()
     {
         // reset player position to respawn point
         transform.position = respawnPoint.position;
