@@ -26,7 +26,7 @@ public class FloorTrigger : MonoBehaviour
             dragonScript.movementOverride = false;
             dragonScript.rb.gravityScale = 1f;
             dragonScript.animation.SetBool("canShoot", true);
-            dragonScript.inTrigger = true;
+            dragonScript.playerInTrigger = true;
         }
     }
 
@@ -34,7 +34,7 @@ public class FloorTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            dragonScript.inTrigger = false;
+            dragonScript.playerInTrigger = false;
             dragonScript.rb.gravityScale = 0f;
         }
     }

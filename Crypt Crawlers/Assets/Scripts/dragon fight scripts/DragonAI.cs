@@ -21,14 +21,13 @@ public class DragonAI : MonoBehaviour
     private bool shootingUp;
     private bool shootingSide;
     private bool shootingDown;
-    public bool movingToPlatform;
-    public bool inTrigger;
 
+    public bool movingToPlatform;
+    public bool playerInTrigger;
+    public bool dragonInTrigger;
     public bool movementOverride;
     public bool leftPlatform;
-    public bool rightPlatform;
     public GameObject leftPlatformObject;
-    public GameObject rightPlatformObject;
 
     // Start is called before the first frame update
     void Start()
@@ -43,12 +42,10 @@ public class DragonAI : MonoBehaviour
         shootingSide = false;
         shootingDown = false;
         movementOverride = false;
-        leftPlatform = false;
-        rightPlatform = false;
         leftPlatformObject = GameObject.Find("leftPlatformLanding");
-        rightPlatformObject = GameObject.Find("rightPlatformLanding");
         movingToPlatform = false;
-        inTrigger = false;
+        playerInTrigger = false;
+        dragonInTrigger = false;
     }
 
     // Update is called once per frame
@@ -61,6 +58,7 @@ public class DragonAI : MonoBehaviour
         direction.Normalize();
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
+        // too far to shoot, chase player
         if (playerDistance > shootDistance)
         {
             if (shootingUp)
@@ -85,7 +83,6 @@ public class DragonAI : MonoBehaviour
                 if (!movementOverride)
                 {
                     movingToPlatform = false;
-                    //Debug.Log("should not see");
                     transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, speed * Time.deltaTime);
 
                     if (Mathf.Abs(angle) < 90)
@@ -97,34 +94,27 @@ public class DragonAI : MonoBehaviour
                         transform.localScale = new Vector3(-spriteSize, transform.localScale.y);
                     }
                 }
-                else if (movementOverride && leftPlatform)
+                else if (movementOverride && playerInTrigger && !dragonInTrigger)
                 {
                     movingToPlatform = true;
                     rb.gravityScale = 0f;
                     transform.position = Vector2.MoveTowards(this.transform.position, leftPlatformObject.transform.position, speed * Time.deltaTime);
-                    Vector3 vectorToTarget = leftPlatformObject.transform.position - transform.position;
+                    /*Vector3 vectorToTarget = leftPlatformObject.transform.position - transform.position;
                     float angle2 = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg + 180;
                     Quaternion q = Quaternion.AngleAxis(angle2, Vector3.forward);
-                    transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * 10);
+                    transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * 10);*/
                 }
-                else if (movementOverride && rightPlatform)
-                {
-                    movingToPlatform = true;
-                    rb.gravityScale = 0f;
-                    transform.position = Vector2.MoveTowards(this.transform.position, rightPlatformObject.transform.position, speed * Time.deltaTime);
-                    Vector3 vectorToTarget = rightPlatformObject.transform.position - transform.position;
-                    float angle2 = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg + 180;
-                    Quaternion q = Quaternion.AngleAxis(angle2, Vector3.forward);
-                    transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * 10);
-                }
+                else
+                    movingToPlatform = false;
             }
             else
             {
                 animation.SetBool("fly", false);
             }
         }
-        else if (playerDistance < shootDistance && !movingToPlatform && inTrigger)
-        {
+        
+        if (playerDistance < shootDistance && !movingToPlatform && playerInTrigger)
+        { //player is within shoot distance, the dragon is not moving to a platform, player is in the trigger, and the dragon is in the left trigger
             animation.SetBool("fly", false);
             if (angle < 0)
             {
@@ -222,6 +212,7 @@ public class DragonAI : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            Physics2D.IgnoreCollision(other.collider, GetComponent<Collider2D>());
             other.gameObject.GetComponent<PlayerHealth>().health -= damage;
         }
     }

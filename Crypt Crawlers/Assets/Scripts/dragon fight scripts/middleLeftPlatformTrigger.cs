@@ -18,16 +18,8 @@ public class middleLeftPlatformTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            //Debug.Log("Player on left platform");
             dragonScript.movementOverride = true;
-            dragonScript.leftPlatform = true;
-            dragonScript.inTrigger = true;
-        }
-        if (other.CompareTag("Boss"))
-        {
-            dragonScript.movingToPlatform = false;
-            dragonScript.animation.SetBool("canShoot", true);
-            dragonScript.transform.rotation = Quaternion.Euler(0, 0, 0);
+            dragonScript.playerInTrigger = true;
         }
     }
 
@@ -35,10 +27,8 @@ public class middleLeftPlatformTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            //Debug.Log("Player leaving right platform");
             dragonScript.movementOverride = false;
-            dragonScript.leftPlatform = false;
-            dragonScript.inTrigger = false;
+            dragonScript.playerInTrigger = false;
         }
     }
 }
