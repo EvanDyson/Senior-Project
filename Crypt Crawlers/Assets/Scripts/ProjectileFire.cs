@@ -11,7 +11,7 @@ public class ProjectileFire : MonoBehaviour
     public bool canFire;
     private float timer;
     public float timeBetweenFiring;
-    public float attackPower;
+    private float attackPower;
 
     //for force vector
     private float forceTimer;
@@ -57,6 +57,7 @@ public class ProjectileFire : MonoBehaviour
             script.ChangeDamage(attackPower);
             force = 0;
             canFire = false;
+            attackPower = 0f;
 
             Destroy(copy, 2.0f);
         }
@@ -67,6 +68,16 @@ public class ProjectileFire : MonoBehaviour
             forceVector.transform.localScale += new Vector3(2, 0, 0);
             force += 7f;
             forceTimer = 0;
+            if (attackPower == 0f)
+            {
+                attackPower += 12.5f;
+            }
+            else
+            {
+                attackPower *= 2;
+            }
+            
+            
             
         }
     }
