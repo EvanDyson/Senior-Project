@@ -10,12 +10,15 @@ public class ExitControl : MonoBehaviour
     public CinemachineVirtualCamera cinCam;
     public Animator ExitDoor;
     public GameObject Dragon;
+    public GameObject cantGoBack;
     private DragonAI dragonScript;
 
     void Start()
     {
         dragonScript = Dragon.GetComponent<DragonAI>();
+        cantGoBack = GameObject.Find("cantGoBack");
         ExitDoor.SetBool("openExit", false);
+        cantGoBack.SetActive(false);
     }
 
     void Update()
@@ -33,6 +36,7 @@ public class ExitControl : MonoBehaviour
             bossFightCamera.enabled = false; ;
             cinCam.enabled = false;
             exitCamera.enabled = true;
+            cantGoBack.SetActive(true);
         }
     }
 }

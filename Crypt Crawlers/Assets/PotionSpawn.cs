@@ -10,7 +10,12 @@ public class PotionSpawn : MonoBehaviour
     public float spawnTimer = 10.0f;
     private float currTime = 0f;
     private int potionRoll = 0;
-    void Update()
+
+    void Start()
+    {
+        spawnTimer += Time.time;
+    }
+        void Update()
     {
         currTime = Time.time;
         if (currTime > spawnTimer)

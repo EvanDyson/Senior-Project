@@ -107,6 +107,21 @@ public class DragonAI : MonoBehaviour
                 //chase the player while not on the ground or on the platform
                 if (playerDistance > shootDistance && !playerOnGround && !dragonOnPlatform && !playerOnPlatform && !movementOverride)
                 {
+                    if (shootingUp)
+                    {
+                        shootingUp = false;
+                        animation.SetBool("shootUp", false);
+                    }
+                    else if (shootingSide)
+                    {
+                        shootingSide = false;
+                        animation.SetBool("shoot", false);
+                    }
+                    else if (shootingDown)
+                    {
+                        shootingDown = false;
+                        animation.SetBool("shootDown", false);
+                    }
                     animation.SetBool("fly", true);
                     transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, speed * Time.deltaTime);
                 }
@@ -150,6 +165,21 @@ public class DragonAI : MonoBehaviour
                 //player is on platform and dragon is flying to platform
                 if (movementOverride && !dragonOnPlatform && playerOnPlatform && !playerOnGround)
                 {
+                    if (shootingUp)
+                    {
+                        shootingUp = false;
+                        animation.SetBool("shootUp", false);
+                    }
+                    else if (shootingSide)
+                    {
+                        shootingSide = false;
+                        animation.SetBool("shoot", false);
+                    }
+                    else if (shootingDown)
+                    {
+                        shootingDown = false;
+                        animation.SetBool("shootDown", false);
+                    }
                     animation.SetBool("fly", true);
                     rb.gravityScale = 0f;
                     transform.position = Vector2.MoveTowards(this.transform.position, new Vector3(-19.7f, 1.37f, 0f), speed * Time.deltaTime);
@@ -189,10 +219,12 @@ public class DragonAI : MonoBehaviour
         if (playerOnLeft)
         {
             transform.localScale = new Vector3(-spriteSize, transform.localScale.y);
+            HealthBar.transform.rotation = Quaternion.Euler(0, -180, 0);
         }
         if (playerOnRight)
         {
             transform.localScale = new Vector3(spriteSize, transform.localScale.y);
+            HealthBar.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
     }
 

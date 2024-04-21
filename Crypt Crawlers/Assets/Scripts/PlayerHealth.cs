@@ -2,7 +2,7 @@ using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
-using static System.Net.Mime.MediaTypeNames;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -23,6 +23,7 @@ public class PlayerHealth : MonoBehaviour
     public float regenTimer;
     public float delayTime;
     public bool regenHealth;
+    private bool bossScene;
 
     private float effectTimer = 2.5f;
     private float currentTime;
@@ -37,6 +38,14 @@ public class PlayerHealth : MonoBehaviour
         imageChanged = false;
         regenHealth = false;
         delayTime = 10f;
+        Scene currentScene = SceneManager.GetActiveScene();
+        string sceneName = currentScene.name;
+        if (sceneName == "Boss_Fight")
+            bossScene = true;
+        else
+            bossScene = false;
+
+        Debug.Log("Boss scene is currently" + bossScene);
     }
 
     // Update is called once per frame
@@ -64,7 +73,7 @@ public class PlayerHealth : MonoBehaviour
             imageChanged = false;
         }
 
-        if (health < 50)
+        if (health < 50 && !bossScene)
         {
             regenTimer += Time.deltaTime;
 
@@ -91,12 +100,8 @@ public class PlayerHealth : MonoBehaviour
                 isSlowed = false;
             }
         }
-
-
-        
     }
     
-
     public void Respawn()
     {
         // reset player position to respawn point
@@ -107,6 +112,7 @@ public class PlayerHealth : MonoBehaviour
         health = maxHealth;
 
     }
+
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.name == "shooting web(Clone)")
