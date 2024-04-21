@@ -44,6 +44,6 @@ public class TriggerLightFade : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         StartFade();
-        
+        Destroy(gameObject, 1.0f);
     }
 }

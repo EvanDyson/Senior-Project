@@ -22,7 +22,7 @@ public class ProjectileFire : MonoBehaviour
 
     //Used to update projectilespeed
     ProjectileMovement script;
-    public FrameFill display;
+    private FrameFill display;
     public bool visualDelay = false;
     void Start()
     {
