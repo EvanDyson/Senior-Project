@@ -163,7 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efa4a8bd8aa919844ad67f5f12810238, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shootDistance: 5
+  shootDistance: 8
   web: {fileID: 6111202302387646006, guid: f9222c5f518c00c489da7af3266ad65a, type: 3}
   webPos: {fileID: 6587317690963870144}
 --- !u!114 &6026990320999339513

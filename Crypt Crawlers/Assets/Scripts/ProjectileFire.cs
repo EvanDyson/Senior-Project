@@ -22,8 +22,11 @@ public class ProjectileFire : MonoBehaviour
 
     //Used to update projectilespeed
     ProjectileMovement script;
+    public FrameFill display;
+    public bool visualDelay = false;
     void Start()
     {
+        display = GetComponent<FrameFill>();
         forceVector = GameObject.Find("SlingshotForce");
     }
 
@@ -38,7 +41,12 @@ public class ProjectileFire : MonoBehaviour
         transform.rotation = Quaternion.Euler(0, 0, rotZ);
         forceTimer += Time.deltaTime;
         if (!canFire) {
-            
+
+            if (visualDelay)
+            {
+                
+                display.fillFrame(1.0f - (timer/ timeBetweenFiring));
+            }
 
             timer += Time.deltaTime;
             if(timer > timeBetweenFiring )

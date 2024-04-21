@@ -9,24 +9,33 @@ public class GrappleGun : MonoBehaviour
     [SerializeField] private LayerMask grappleLayer2;
     [SerializeField] private LineRenderer rope;
     [SerializeField] private float timeBtwShooting;
+   
     private DistanceJoint2D grappleLine;
 
     private Vector3 grapplePoint;
     private DistanceJoint2D joint;
     private float delay;
+
+    public bool visualDelay = false;
+    private FrameFill display;
     // Start is called before the first frame update
     void Start()
     {
+        display = GetComponent<FrameFill>();
         joint = gameObject.GetComponent<DistanceJoint2D>();
         joint.enabled = false;
         rope.enabled = false;
-        delay = 0;
+        delay = timeBtwShooting;
     }
 
     // Update is called once per frame
     void Update()
     {
         delay += Time.deltaTime;
+        if (visualDelay)
+        {
+            display.fillFrame(1.0f -(delay / timeBtwShooting));
+        }
 
         if (Input.GetKeyDown("w") && delay > timeBtwShooting)
         {
