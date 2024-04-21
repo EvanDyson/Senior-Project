@@ -9,13 +9,19 @@ public class DoorControl : MonoBehaviour
     public Camera startingCamera;
     public CinemachineVirtualCamera cinCam;
     public Animator DoorController;
-    public GameObject wizardOnCloud;
+    private GameObject wizardOnCloud;
+    private GameObject wizard;
+    private GameObject wizardText;
 
     void Start()
     {
         wizardOnCloud = GameObject.Find("wizardOnCloud");
         wizardOnCloud.SetActive(false);
         //DoorController.SetBool("closeDoor", false);
+        wizard = GameObject.Find("wizard");
+        wizard.SetActive(true);
+        wizardText = GameObject.Find("MessagesInScene");
+        wizardText.SetActive(true);
     }
 
 
@@ -25,6 +31,8 @@ public class DoorControl : MonoBehaviour
         {
             DoorController.SetBool("closeDoor", true);
             wizardOnCloud.SetActive(true);
+            wizard.SetActive(false);
+            wizardText.SetActive(false);
             startingCamera.enabled = false;
             bossFightCamera.enabled = true;
             cinCam.enabled = true;
