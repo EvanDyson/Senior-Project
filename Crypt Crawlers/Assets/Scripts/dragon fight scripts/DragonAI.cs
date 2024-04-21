@@ -17,6 +17,7 @@ public class DragonAI : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     public Animator animation;
     public UnityEngine.UI.Image dragonHealthBar;
+    public Canvas HealthBar;
 
     private bool shootingUp;
     private bool shootingSide;
@@ -58,112 +59,115 @@ public class DragonAI : MonoBehaviour
         {
             death();
         }
-
-        //player distance calculation
-        playerDistance = Vector2.Distance(transform.position, player.transform.position);
-        Vector2 direction = player.transform.position - transform.position;
-        direction.Normalize();
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-
-        if (this.transform.position == new Vector3(-19.7f, 1.37f, 0f))
-        {
-            dragonOnPlatform = true;
-        }
         else
         {
-            dragonOnPlatform = false;
-        }
-        if (playerDistance < detectDistance)
-        { 
-            // on the ground, too far to shoot, chase player
-            if (playerDistance > shootDistance && playerOnGround && !playerOnPlatform && !dragonOnPlatform && !movementOverride)
+
+            //player distance calculation
+            playerDistance = Vector2.Distance(transform.position, player.transform.position);
+            Vector2 direction = player.transform.position - transform.position;
+            direction.Normalize();
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+            if (this.transform.position == new Vector3(-19.7f, 1.37f, 0f))
             {
-                if (shootingUp)
+                dragonOnPlatform = true;
+            }
+            else
+            {
+                dragonOnPlatform = false;
+            }
+            if (playerDistance < detectDistance)
+            {
+                // on the ground, too far to shoot, chase player
+                if (playerDistance > shootDistance && playerOnGround && !playerOnPlatform && !dragonOnPlatform && !movementOverride)
                 {
-                    shootingUp = false;
-                    animation.SetBool("shootUp", false);
+                    if (shootingUp)
+                    {
+                        shootingUp = false;
+                        animation.SetBool("shootUp", false);
+                    }
+                    else if (shootingSide)
+                    {
+                        shootingSide = false;
+                        animation.SetBool("shoot", false);
+                    }
+                    else if (shootingDown)
+                    {
+                        shootingDown = false;
+                        animation.SetBool("shootDown", false);
+                    }
+                    //player within detect distance
+                    if (playerDistance < detectDistance)
+                    {
+                        //fly to player
+                        animation.SetBool("fly", true);
+                        transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, speed * Time.deltaTime);
+                    }
                 }
-                else if (shootingSide)
+                //chase the player while not on the ground or on the platform
+                if (playerDistance > shootDistance && !playerOnGround && !dragonOnPlatform && !playerOnPlatform && !movementOverride)
                 {
-                    shootingSide = false;
-                    animation.SetBool("shoot", false);
-                }
-                else if (shootingDown)
-                {
-                    shootingDown = false;
-                    animation.SetBool("shootDown", false);
-                }
-                //player within detect distance
-                if (playerDistance < detectDistance)
-                {
-                    //fly to player
                     animation.SetBool("fly", true);
                     transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, speed * Time.deltaTime);
                 }
-            }
-            //chase the player while not on the ground or on the platform
-            if (playerDistance > shootDistance && !playerOnGround && !dragonOnPlatform && !playerOnPlatform && !movementOverride)
-            {
-                animation.SetBool("fly", true);
-                transform.position = Vector2.MoveTowards(this.transform.position, player.transform.position, speed * Time.deltaTime);
-            }
-            //shooting at player on the ground
-            if (playerDistance < shootDistance && !dragonOnPlatform && playerOnGround && !playerOnPlatform && !movementOverride)
-            {
-                animation.SetBool("fly", false);
-                if (angle < 0)
+                //shooting at player on the ground
+                if (playerDistance < shootDistance && !dragonOnPlatform && playerOnGround && !playerOnPlatform && !movementOverride)
                 {
-                    shootingDown = true;
-                    animation.SetBool("shootDown", true);
-                }
-                else
-                {
-                    shootingDown = false;
-                    animation.SetBool("shootDown", false);
-                }
+                    animation.SetBool("fly", false);
+                    if (angle < 0)
+                    {
+                        shootingDown = true;
+                        animation.SetBool("shootDown", true);
+                    }
+                    else
+                    {
+                        shootingDown = false;
+                        animation.SetBool("shootDown", false);
+                    }
 
-                if ((angle > 0 && angle < 45) || (angle < 180 && angle > 135))
-                {
-                    shootingSide = true;
-                    animation.SetBool("shoot", true);
-                }
-                else
-                {
-                    shootingSide = false;
-                    animation.SetBool("shoot", false);
-                }
+                    if ((angle > 0 && angle < 45) || (angle < 180 && angle > 135))
+                    {
+                        shootingSide = true;
+                        animation.SetBool("shoot", true);
+                    }
+                    else
+                    {
+                        shootingSide = false;
+                        animation.SetBool("shoot", false);
+                    }
 
-                if (angle > 45 && angle < 135)
-                {
-                    shootingUp = true;
-                    animation.SetBool("shootUp", true);
+                    if (angle > 45 && angle < 135)
+                    {
+                        shootingUp = true;
+                        animation.SetBool("shootUp", true);
+                    }
+                    else
+                    {
+                        shootingUp = false;
+                        animation.SetBool("shootUp", false);
+                    }
                 }
-                else
+                //player is on platform and dragon is flying to platform
+                if (movementOverride && !dragonOnPlatform && playerOnPlatform && !playerOnGround)
                 {
-                    shootingUp = false;
-                    animation.SetBool("shootUp", false);
+                    animation.SetBool("fly", true);
+                    rb.gravityScale = 0f;
+                    transform.position = Vector2.MoveTowards(this.transform.position, new Vector3(-19.7f, 1.37f, 0f), speed * Time.deltaTime);
                 }
-            }
-            //player is on platform and dragon is flying to platform
-            if (movementOverride && !dragonOnPlatform && playerOnPlatform && !playerOnGround)
-            {
-                animation.SetBool("fly", true);
-                rb.gravityScale = 0f;
-                transform.position = Vector2.MoveTowards(this.transform.position, new Vector3(-19.7f, 1.37f, 0f), speed * Time.deltaTime);
-            }
-            //dragon is on platform and player is on platform
-            if (movementOverride && dragonOnPlatform && playerOnPlatform && !playerOnGround)
-            {
-                animation.SetBool("fly", false);
-                if (angle > 45 && angle < 135)
+                //dragon is on platform and player is on platform
+                if (movementOverride && dragonOnPlatform && playerOnPlatform && !playerOnGround)
                 {
-                    shootingUp = true;
-                    animation.SetBool("shootUp", true);
-                }
-                else
-                {
-                    shootingUp = false;
-                    animation.SetBool("shootUp", false);
+                    animation.SetBool("fly", false);
+                    if (angle > 45 && angle < 135)
+                    {
+                        shootingUp = true;
+                        animation.SetBool("shootUp", true);
+                    }
+                    else
+                    {
+                        shootingUp = false;
+                        animation.SetBool("shootUp", false);
+                    }
                 }
             }
         }
@@ -203,7 +207,8 @@ public class DragonAI : MonoBehaviour
             animation.SetBool("isDead", true);
         }
         // Call a function to handle the blinking effect
-        BlinkRed();
+        if (health > 0)
+            BlinkRed();
 
     }
 
@@ -227,11 +232,11 @@ public class DragonAI : MonoBehaviour
         spriteRenderer.color = Color.white;
     }
 
-    public void OnCollisionEnter2D(Collision2D other)
+    public void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.CompareTag("Player"))
         {
-            other.gameObject.GetComponent<PlayerHealth>().health -= damage;
+            other.GetComponent<PlayerHealth>().health -= damage;
         }
     }
 
@@ -252,6 +257,7 @@ public class DragonAI : MonoBehaviour
         animation.SetBool("canShoot", false);
         animation.SetBool("isDead", true);
         damage = 0;
+        HealthBar.enabled = false;
         dragonScript.enabled = false;
     }
 }
