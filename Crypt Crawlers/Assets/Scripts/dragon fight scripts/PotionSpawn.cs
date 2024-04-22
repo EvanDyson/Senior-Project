@@ -8,17 +8,19 @@ public class PotionSpawn : MonoBehaviour
     public GameObject defaultPotion;
     public GameObject superPotion;
     public float spawnTimer = 10.0f;
-    private float currTime = 0f;
+    private float currTime;
     private int potionRoll = 0;
 
     void Start()
     {
-        spawnTimer += Time.time;
+        currTime = 0f;
     }
-        void Update()
+
+    void Update()
     {
-        currTime = Time.time;
-        if (currTime > spawnTimer)
+        currTime += Time.deltaTime;
+
+        if (currTime >= spawnTimer)
         {
             potionRoll = Random.Range(0, 10);
             if (potionRoll < 7) {
@@ -28,7 +30,7 @@ public class PotionSpawn : MonoBehaviour
             {
                 Instantiate(superPotion, transform.position, transform.rotation);
             }
-            spawnTimer += Time.time;
+            currTime = 0f;
         }
     }
 }
