@@ -11,7 +11,7 @@ public class GrappleGun : MonoBehaviour
     [SerializeField] private float timeBtwShooting;
    
     private DistanceJoint2D grappleLine;
-
+    public bool releaseGrapple = false;
     private Vector3 grapplePoint;
     private DistanceJoint2D joint;
     private float delay;
@@ -60,10 +60,11 @@ public class GrappleGun : MonoBehaviour
             delay = 0;
         }
 
-        if (Input.GetKeyUp("w"))
+        if (Input.GetKeyUp("w") || releaseGrapple)
         {
             joint.enabled = false;
             rope.enabled = false;
+            releaseGrapple = false;
         }
 
         if (rope.enabled == true)

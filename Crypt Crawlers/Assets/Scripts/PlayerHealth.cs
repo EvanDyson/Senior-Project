@@ -29,9 +29,12 @@ public class PlayerHealth : MonoBehaviour
     private float currentTime;
     private bool isSlowed = false;
 
+    private GrappleGun grappleGun;
+
     // Start is called before the first frame update
     void Start()
     {
+        grappleGun = GetComponent<GrappleGun>();
         playerMovement = GetComponent<PlayerMovement>();
         playerSpeed = playerMovement.moveSpeed;
         maxHealth = health;
@@ -110,6 +113,7 @@ public class PlayerHealth : MonoBehaviour
         StatusEffectBar.sprite = FirstHealthBarOutline;
         isSlowed = false;
         health = maxHealth;
+        grappleGun.releaseGrapple = true;
 
     }
 
